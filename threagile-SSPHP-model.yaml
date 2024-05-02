@@ -531,19 +531,19 @@ individual_risk_categories:
                 most_relevant_trust_boundary: splunk-network
                 most_relevant_shared_runtime: ""
 
-risk_tracking:
+risk_tracking: # changes are only shown in the empty keys once the status changes from unchecked
   information-disclosure@splunk@splunk-network@splunk-data:
-    status: unchecked
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification:
     ticket:
     date: "2024-05-02"
     checked_by:
   unguarded-access-from-internet@github-actions-build-pipeline@rust-function-app@rust-function-app>build-pipeline-traffic:
-    status: unchecked
-    justification:
-    ticket:
+    status: false-positive # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Coding in the open is important for Government, access is strictly controlled to those who require it.
+    ticket: XYZ-000
     date: "2024-05-02"
-    checked_by:
+    checked_by: Sam
   unguarded-access-from-internet@key-vault@rust-function-app@rust-function-app>retrieve-keys:
     status: unchecked
     justification:

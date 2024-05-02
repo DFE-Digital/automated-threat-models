@@ -119,6 +119,8 @@ $ python3 produce_risk_tracker.py
 
 The output it provides comes from your risks.json that threagile produces, and puts it in the format required for the risk tracking section at the bottom of your YAML, simply copy and paste the output. You can then rerun it and the risks will be updated in the reporting outputs.
 
+**IMPORTANT: Changes are only shown in the empty columns on the risks sheet once you change the status from "unchecked" as they relate to you reviewing the issue**
+
 # TODO / Roadmap
 
 - [ ] example GitHub Action to watch file
