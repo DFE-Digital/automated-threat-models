@@ -1,0 +1,687 @@
+[
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e by \u003cb\u003eRust Function App\u003c/b\u003e via \u003cb\u003eBuild Pipeline Traffic\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@github-actions-build-pipeline@rust-function-app@rust-function-app\u003ebuild-pipeline-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-actions-build-pipeline",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003ebuild-pipeline-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "github-actions-build-pipeline"
+        ]
+    },
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eKey Vault\u003c/b\u003e by \u003cb\u003eRust Function App\u003c/b\u003e via \u003cb\u003eRetrieve keys\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@key-vault@rust-function-app@rust-function-app\u003eretrieve-keys",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "key-vault",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003eretrieve-keys",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "key-vault"
+        ]
+    },
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eRust Function App\u003c/b\u003e by \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e via \u003cb\u003eFunction App Push\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@rust-function-app@github-actions-build-pipeline@github-actions-build-pipeline\u003efunction-app-push",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "github-actions-build-pipeline\u003efunction-app-push",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "rust-function-app"
+        ]
+    },
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eSplunk\u003c/b\u003e by \u003cb\u003eRust Function App\u003c/b\u003e via \u003cb\u003eSend data to Splunk\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@splunk@rust-function-app@rust-function-app\u003esend-data-to-splunk",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "splunk",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003esend-data-to-splunk",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "splunk"
+        ]
+    },
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "low",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eCodeQL Code Inspection\u003c/b\u003e by \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e via \u003cb\u003eCode Inspection Platform Traffic\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@codeql-code-inspection@github-actions-build-pipeline@github-actions-build-pipeline\u003ecode-inspection-platform-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "codeql-code-inspection",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "github-actions-build-pipeline\u003ecode-inspection-platform-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "low",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eCodeQL Code Inspection\u003c/b\u003e by \u003cb\u003eRust Function App\u003c/b\u003e via \u003cb\u003eCode Inspection Platform Traffic\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@codeql-code-inspection@rust-function-app@rust-function-app\u003ecode-inspection-platform-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "codeql-code-inspection",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003ecode-inspection-platform-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "low",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e by \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e via \u003cb\u003eSourcecode Repository Traffic\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@github-sourcecode-repository@github-actions-build-pipeline@github-actions-build-pipeline\u003esourcecode-repository-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-sourcecode-repository",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "github-actions-build-pipeline\u003esourcecode-repository-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "github-sourcecode-repository"
+        ]
+    },
+    {
+        "category": "unguarded-access-from-internet",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "very-likely",
+        "exploitation_impact": "low",
+        "title": "\u003cb\u003eUnguarded Access from Internet\u003c/b\u003e of \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e by \u003cb\u003eRust Function App\u003c/b\u003e via \u003cb\u003eSourcecode Repository Traffic\u003c/b\u003e",
+        "synthetic_id": "unguarded-access-from-internet@github-sourcecode-repository@rust-function-app@rust-function-app\u003esourcecode-repository-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-sourcecode-repository",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003esourcecode-repository-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "github-sourcecode-repository"
+        ]
+    },
+    {
+        "category": "missing-cloud-hardening",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "very-high",
+        "title": "\u003cb\u003eMissing Cloud Hardening (Azure)\u003c/b\u003e risk at \u003cb\u003eAzure Trust Boundary\u003c/b\u003e: \u003cu\u003eCIS Benchmark for Microsoft Azure\u003c/u\u003e",
+        "synthetic_id": "missing-cloud-hardening@azure-network",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "",
+        "most_relevant_trust_boundary": "azure-network",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "rust-function-app",
+            "key-vault"
+        ]
+    },
+    {
+        "category": "missing-cloud-hardening",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "very-high",
+        "title": "\u003cb\u003eMissing Cloud Hardening\u003c/b\u003e risk at \u003cb\u003eSplunk Trust Boundary\u003c/b\u003e",
+        "synthetic_id": "missing-cloud-hardening@splunk-network",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "",
+        "most_relevant_trust_boundary": "splunk-network",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "splunk"
+        ]
+    },
+    {
+        "category": "missing-cloud-hardening",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "high",
+        "title": "\u003cb\u003eMissing Cloud Hardening\u003c/b\u003e risk at \u003cb\u003eGitHub Trust Boundary\u003c/b\u003e",
+        "synthetic_id": "missing-cloud-hardening@github-network",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "",
+        "most_relevant_trust_boundary": "github-network",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "github-sourcecode-repository",
+            "github-actions-build-pipeline",
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "missing-hardening",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eMissing Hardening\u003c/b\u003e risk at \u003cb\u003eKey Vault\u003c/b\u003e",
+        "synthetic_id": "missing-hardening@key-vault",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "key-vault",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "key-vault"
+        ]
+    },
+    {
+        "category": "missing-hardening",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eMissing Hardening\u003c/b\u003e risk at \u003cb\u003eRust Function App\u003c/b\u003e",
+        "synthetic_id": "missing-hardening@rust-function-app",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "rust-function-app"
+        ]
+    },
+    {
+        "category": "missing-hardening",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eMissing Hardening\u003c/b\u003e risk at \u003cb\u003eSplunk\u003c/b\u003e",
+        "synthetic_id": "missing-hardening@splunk",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "splunk",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "splunk"
+        ]
+    },
+    {
+        "category": "code-backdooring",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "high",
+        "title": "\u003cb\u003eCode Backdooring\u003c/b\u003e risk at \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e",
+        "synthetic_id": "code-backdooring@github-actions-build-pipeline",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-actions-build-pipeline",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "rust-function-app",
+            "github-actions-build-pipeline",
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "code-backdooring",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "high",
+        "title": "\u003cb\u003eCode Backdooring\u003c/b\u003e risk at \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e",
+        "synthetic_id": "code-backdooring@github-sourcecode-repository",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-sourcecode-repository",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "github-sourcecode-repository"
+        ]
+    },
+    {
+        "category": "code-backdooring",
+        "risk_status": "unchecked",
+        "severity": "low",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "low",
+        "title": "\u003cb\u003eCode Backdooring\u003c/b\u003e risk at \u003cb\u003eCodeQL Code Inspection\u003c/b\u003e",
+        "synthetic_id": "code-backdooring@codeql-code-inspection",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "codeql-code-inspection",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "missing-vault-isolation",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "high",
+        "title": "\u003cb\u003eMissing Vault Isolation\u003c/b\u003e to further encapsulate and protect vault-related asset \u003cb\u003eKey Vault\u003c/b\u003e against unrelated lower protected assets \u003cb\u003ein the same network segment\u003c/b\u003e, which might be easier to compromise by attackers",
+        "synthetic_id": "missing-vault-isolation@key-vault",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "key-vault",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "key-vault"
+        ]
+    },
+    {
+        "category": "information-disclosure",
+        "risk_status": "unchecked",
+        "severity": "critical",
+        "exploitation_likelihood": "likely",
+        "exploitation_impact": "high",
+        "title": "\u003cb\u003eExample Individual Risk\u003c/b\u003e at \u003cbSplunkCloud\u003c/b\u003e",
+        "synthetic_id": "information-disclosure@splunk@splunk-network@splunk-data",
+        "most_relevant_data_asset": "splunk-data",
+        "most_relevant_technical_asset": "splunk",
+        "most_relevant_trust_boundary": "splunk-network",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "splunk"
+        ]
+    },
+    {
+        "category": "unencrypted-asset",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "high",
+        "title": "\u003cb\u003eUnencrypted Technical Asset\u003c/b\u003e named \u003cb\u003eRust Function App\u003c/b\u003e",
+        "synthetic_id": "unencrypted-asset@rust-function-app",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "rust-function-app"
+        ]
+    },
+    {
+        "category": "unencrypted-asset",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnencrypted Technical Asset\u003c/b\u003e named \u003cb\u003eCodeQL Code Inspection\u003c/b\u003e",
+        "synthetic_id": "unencrypted-asset@codeql-code-inspection",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "codeql-code-inspection",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "unencrypted-asset",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnencrypted Technical Asset\u003c/b\u003e named \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e",
+        "synthetic_id": "unencrypted-asset@github-actions-build-pipeline",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-actions-build-pipeline",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "github-actions-build-pipeline"
+        ]
+    },
+    {
+        "category": "unencrypted-asset",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnencrypted Technical Asset\u003c/b\u003e named \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e",
+        "synthetic_id": "unencrypted-asset@github-sourcecode-repository",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-sourcecode-repository",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "github-sourcecode-repository"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eRust Function App\u003c/b\u003e server-side web-requesting the target \u003cb\u003eKey Vault\u003c/b\u003e via \u003cb\u003eRetrieve keys\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@rust-function-app@key-vault@rust-function-app\u003eretrieve-keys",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003eretrieve-keys",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "key-vault",
+            "rust-function-app"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "elevated",
+        "exploitation_likelihood": "likely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eRust Function App\u003c/b\u003e server-side web-requesting the target \u003cb\u003eVarious service REST endpoints\u003c/b\u003e via \u003cb\u003eAPI Calls to Services\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@rust-function-app@various-service-rest-endpoints@rust-function-app\u003eapi-calls-to-services",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003eapi-calls-to-services",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "rust-function-app",
+            "key-vault"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e server-side web-requesting the target \u003cb\u003eCodeQL Code Inspection\u003c/b\u003e via \u003cb\u003eCode Inspection Platform Traffic\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@github-actions-build-pipeline@codeql-code-inspection@github-actions-build-pipeline\u003ecode-inspection-platform-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-actions-build-pipeline",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "github-actions-build-pipeline\u003ecode-inspection-platform-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "codeql-code-inspection",
+            "github-sourcecode-repository",
+            "github-actions-build-pipeline"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e server-side web-requesting the target \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e via \u003cb\u003eSourcecode Repository Traffic\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@github-actions-build-pipeline@github-sourcecode-repository@github-actions-build-pipeline\u003esourcecode-repository-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-actions-build-pipeline",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "github-actions-build-pipeline\u003esourcecode-repository-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "github-actions-build-pipeline",
+            "github-sourcecode-repository",
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e server-side web-requesting the target \u003cb\u003eRust Function App\u003c/b\u003e via \u003cb\u003eFunction App Push\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@github-actions-build-pipeline@rust-function-app@github-actions-build-pipeline\u003efunction-app-push",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-actions-build-pipeline",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "github-actions-build-pipeline\u003efunction-app-push",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "github-actions-build-pipeline",
+            "codeql-code-inspection",
+            "github-sourcecode-repository"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eRust Function App\u003c/b\u003e server-side web-requesting the target \u003cb\u003eCodeQL Code Inspection\u003c/b\u003e via \u003cb\u003eCode Inspection Platform Traffic\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@rust-function-app@codeql-code-inspection@rust-function-app\u003ecode-inspection-platform-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003ecode-inspection-platform-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "rust-function-app",
+            "key-vault"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eRust Function App\u003c/b\u003e server-side web-requesting the target \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e via \u003cb\u003eBuild Pipeline Traffic\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@rust-function-app@github-actions-build-pipeline@rust-function-app\u003ebuild-pipeline-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003ebuild-pipeline-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "key-vault",
+            "rust-function-app"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eRust Function App\u003c/b\u003e server-side web-requesting the target \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e via \u003cb\u003eSourcecode Repository Traffic\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@rust-function-app@github-sourcecode-repository@rust-function-app\u003esourcecode-repository-traffic",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003esourcecode-repository-traffic",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "rust-function-app",
+            "key-vault"
+        ]
+    },
+    {
+        "category": "server-side-request-forgery",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eServer-Side Request Forgery (SSRF)\u003c/b\u003e risk at \u003cb\u003eRust Function App\u003c/b\u003e server-side web-requesting the target \u003cb\u003eSplunk\u003c/b\u003e via \u003cb\u003eSend data to Splunk\u003c/b\u003e",
+        "synthetic_id": "server-side-request-forgery@rust-function-app@splunk@rust-function-app\u003esend-data-to-splunk",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "rust-function-app\u003esend-data-to-splunk",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "rust-function-app",
+            "key-vault"
+        ]
+    },
+    {
+        "category": "push-instead-of-pull-deployment",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003ePush instead of Pull Deployment\u003c/b\u003e at \u003cb\u003eRust Function App\u003c/b\u003e via build pipeline asset \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e",
+        "synthetic_id": "push-instead-of-pull-deployment@github-actions-build-pipeline",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "rust-function-app",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "github-actions-build-pipeline\u003efunction-app-push",
+        "data_breach_probability": "improbable",
+        "data_breach_technical_assets": [
+            "rust-function-app"
+        ]
+    },
+    {
+        "category": "accidental-secret-leak",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eAccidental Secret Leak\u003c/b\u003e risk at \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e",
+        "synthetic_id": "accidental-secret-leak@github-sourcecode-repository",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-sourcecode-repository",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "probable",
+        "data_breach_technical_assets": [
+            "github-sourcecode-repository"
+        ]
+    },
+    {
+        "category": "unchecked-deployment",
+        "risk_status": "unchecked",
+        "severity": "medium",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "medium",
+        "title": "\u003cb\u003eUnchecked Deployment\u003c/b\u003e risk at \u003cb\u003eGitHub Actions Build Pipeline\u003c/b\u003e",
+        "synthetic_id": "unchecked-deployment@github-actions-build-pipeline",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-actions-build-pipeline",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "github-actions-build-pipeline",
+            "codeql-code-inspection",
+            "rust-function-app"
+        ]
+    },
+    {
+        "category": "unchecked-deployment",
+        "risk_status": "unchecked",
+        "severity": "low",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "low",
+        "title": "\u003cb\u003eUnchecked Deployment\u003c/b\u003e risk at \u003cb\u003eCodeQL Code Inspection\u003c/b\u003e",
+        "synthetic_id": "unchecked-deployment@codeql-code-inspection",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "codeql-code-inspection",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "codeql-code-inspection"
+        ]
+    },
+    {
+        "category": "unchecked-deployment",
+        "risk_status": "unchecked",
+        "severity": "low",
+        "exploitation_likelihood": "unlikely",
+        "exploitation_impact": "low",
+        "title": "\u003cb\u003eUnchecked Deployment\u003c/b\u003e risk at \u003cb\u003eGitHub Sourcecode Repository\u003c/b\u003e",
+        "synthetic_id": "unchecked-deployment@github-sourcecode-repository",
+        "most_relevant_data_asset": "",
+        "most_relevant_technical_asset": "github-sourcecode-repository",
+        "most_relevant_trust_boundary": "",
+        "most_relevant_shared_runtime": "",
+        "most_relevant_communication_link": "",
+        "data_breach_probability": "possible",
+        "data_breach_technical_assets": [
+            "github-sourcecode-repository"
+        ]
+    }
+]

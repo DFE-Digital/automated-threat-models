@@ -1,0 +1,766 @@
+threagile_version: 1.0.0
+title: DfE SSPHP Threat Model
+author:
+  name: Sam Pritchard
+  homepage: www.education.gov.uk
+date: "2024-05-02"
+business_overview:
+  description: A test threagile run based on the DfE SSPHP Metrics continuous assurance platform.
+  images: []
+technical_overview:
+  description: The application involves a Rust function app that takes care of ingesting data from multiple sources, and then pushes the data to SplunkCloud.
+  images: []
+business_criticality: important
+management_summary_comment: |
+  Important security data is ingested to show a view of the world in DfE.
+abuse_cases:
+  Sensitive-Key-Compromise: >
+    As an attacker, I would like to steal sensitive keys used by the Rust ingester to enable me to get hold of sensitive data regarding the DfE estate.
+  Information-Dislosure: >
+    As an attacker, I'd like to access SplunkCloud to view the dashboards containing the risk and compliance levels of sensitive services.
+  Denial-of-Service: >
+    As an attacker, I'd like to disrupt the service to prevent data from being ingested.
+  Data-Poisoning: >
+    As an attacker, I'd like to forward data to SplunkCloud to poison the data and cause reputational damage.
+security_requirements:
+  Strict key management: Ensure that keys are properly secured and managed to ensure that only the Rust function app can access them.
+tags_available:
+  - azure
+  - azure-key-vault
+  - azure-storage-account
+  - azure-function-app
+  - azure-app-service
+  - git
+  - terraform
+  - github
+  - github-actions
+  - codeql
+  - splunk
+  - o365
+
+data_assets:
+
+  Secrets and API Keys:
+    id: secrets-and-api-keys
+    description: There are sensitive secrets and API keys being held in key vault and used by the Rust Function.
+    usage: business
+    tags: 
+      - azure-key-vault
+    origin: DfE
+    owner: DfE
+    quantity: very-few
+    confidentiality: strictly-confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: The Rust Function App secrets are at least rated as 'critical' in terms of integrity, because any access to the keys or modification of the code would reveal sensitive system information across the whole estate.
+  Splunk data:
+    id: splunk-data
+    description: Splunk data contains all the vulnerability and compliance data for each system we collect from (Azure, AWS, GitHub, O365).
+    usage: business
+    tags: 
+        - splunk
+    origin: DfE
+    owner: DfE
+    quantity: many
+    confidentiality: strictly-confidential
+    integrity: critical
+    availability: operational
+    justification_cia_rating: The splunk data is confidential due to the amount of vulnerability and compliance data for systems across the org.
+  Sourcecode:
+    id: sourcecode
+    description: Sourcecode to build the application components from.
+    usage: devops
+    tags: 
+      - git
+      - github
+    origin: dfe
+    owner: dfe
+    quantity: few
+    confidentiality: public
+    integrity: important
+    availability: important
+    justification_cia_rating: The source code is continuously changing, deployed by CI/CD and is public due to the nature of Government's coding in the open policy.
+technical_assets:
+    Rust Function App:
+        id: rust-function-app
+        description: The Rust Function App collects data from Azure, O365, AWS, GitHub.
+        type: external-entity
+        usage: business
+        used_as_client_by_human: false
+        out_of_scope: false
+        justification_out_of_scope: 
+        size: application
+        technology: function
+        tags: 
+            - azure-function-app
+        internet: true
+        machine: serverless
+        encryption: none
+        owner: dfe
+        confidentiality: confidential
+        integrity: critical
+        availability: important
+        justification_cia_rating: The function app handles sensitive keys and processess sensitive system infromation from across the estate.
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - sourcecode
+            - secrets-and-api-keys
+            - splunk-data
+        data_assets_stored:
+            - secrets-and-api-keys
+            - splunk-data
+        data_formats_accepted:
+            - json
+        diagram_tweak_order: 0
+        communication_links:
+            API Calls to Services:
+                target: various-service-rest-endpoints
+                description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+                protocol: https
+                authentication: token
+                authorization: technical-user
+                tags: 
+                    - azure
+                    - o365
+                    - github
+                vpn: false
+                ip_filtered: false
+                readonly: true
+                usage: business
+                data_assets_sent:
+                    - secrets-and-api-keys
+                    - sourcecode
+                data_assets_received:
+                    - splunk-data
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+            Retrieve keys:
+                target: key-vault
+                description: The function must retrieve keys from Key Vault in order to call APIs and send data to Splunk.
+                protocol: https
+                authentication: token
+                authorization: technical-user
+                tags: 
+                    - azure
+                    - splunk
+                vpn: false
+                ip_filtered: false
+                readonly: true
+                usage: business
+                data_assets_sent:
+                    - secrets-and-api-keys
+                data_assets_received:
+                    - secrets-and-api-keys
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+            Send data to Splunk:
+                target: splunk
+                description: Data collected and sent to SplunkCloud for analysis, via a HEC token.
+                protocol: https
+                authentication: token
+                authorization: technical-user
+                tags: 
+                    - splunk
+                vpn: false
+                ip_filtered: true
+                readonly: false
+                usage: devops
+                data_assets_sent:
+                    - splunk-data
+                data_assets_received:
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+            Build Pipeline Traffic:
+                target: github-actions-build-pipeline
+                description: Build Pipeline Traffic
+                protocol: https
+                authentication: token
+                authorization: technical-user
+                tags: 
+                    - github-actions
+                vpn: false
+                ip_filtered: false
+                readonly: true
+                usage: devops
+                data_assets_sent: 
+                    - sourcecode
+                data_assets_received:
+                    - sourcecode
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+            Code Inspection Platform Traffic:
+                target: codeql-code-inspection
+                description: Code Inspection Platform Traffic
+                protocol: https
+                authentication: token
+                authorization: technical-user
+                tags: 
+                    - codeql
+                vpn: false
+                ip_filtered: false
+                readonly: true
+                usage: devops
+                data_assets_sent: []
+                data_assets_received:
+                    - sourcecode
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+            Sourcecode Repository Traffic:
+                target: github-sourcecode-repository
+                description: Sourcecode Repository Traffic
+                protocol: https
+                authentication: token
+                authorization: technical-user
+                tags: 
+                    - github
+                    - git
+                vpn: false
+                ip_filtered: false
+                readonly: false
+                usage: devops
+                data_assets_sent:
+                    - sourcecode
+                data_assets_received:
+                    - sourcecode
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+    Key Vault:
+        id: key-vault
+        description: The key vault containing keys for sensitive systems, and the Splunk data ingestion HEC token.
+        type: datastore
+        usage: business
+        used_as_client_by_human: false
+        out_of_scope: false
+        justification_out_of_scope: ""
+        size: service
+        technology: vault
+        tags:
+            - azure-key-vault
+        internet: true
+        machine: virtual
+        encryption: data-with-symmetric-shared-key
+        owner: dfe
+        confidentiality: strictly-confidential
+        integrity: important
+        availability: important
+        justification_cia_rating: KeyVault should be properly secured due to the increasing attack surface that would result from leaking the secrets within.
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - secrets-and-api-keys
+        data_assets_stored:
+            - secrets-and-api-keys
+        data_formats_accepted:
+            - json
+        diagram_tweak_order: 0
+        communication_links: {}
+    Various service REST endpoints:
+        id: various-service-rest-endpoints
+        description: Various service REST endpoints we collect data from.
+        type: datastore
+        usage: business
+        used_as_client_by_human: false
+        out_of_scope: true
+        justification_out_of_scope: "Not part of the overall system, or managed by the team."
+        size: service
+        technology: web-service-rest
+        tags:
+            - azure
+        internet: true
+        machine: virtual
+        encryption: data-with-symmetric-shared-key
+        owner: azure and dfe share responsibility
+        confidentiality: strictly-confidential
+        integrity: important
+        availability: important
+        justification_cia_rating: We are not in control of these assets, we simply use them to retrieve data.
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - secrets-and-api-keys
+            - splunk-data
+        data_assets_stored:
+            - splunk-data
+        data_formats_accepted:
+            - json
+        diagram_tweak_order: 0
+        communication_links: {}
+    Splunk:
+        id: splunk
+        description: All data from the function app ends up in Splunk for analysis.
+        type: datastore
+        usage: business
+        used_as_client_by_human: false
+        out_of_scope: false
+        justification_out_of_scope: ""
+        size: service
+        technology: big-data-platform
+        tags:
+            - splunk
+        internet: true
+        machine: virtual
+        encryption: data-with-symmetric-shared-key
+        owner: dfe
+        confidentiality: strictly-confidential
+        integrity: important
+        availability: important
+        justification_cia_rating: KeyVault should be properly secured due to the increasing attack surface that would result from leaking the secrets within.
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - splunk-data
+        data_assets_stored:
+            - splunk-data
+        data_formats_accepted:
+            - json
+        diagram_tweak_order: 0
+        communication_links: {}
+    CodeQL Code Inspection:
+        id: codeql-code-inspection
+        description: CodeQL Code Inspection
+        type: process
+        usage: devops
+        used_as_client_by_human: false
+        out_of_scope: false
+        justification_out_of_scope: ""
+        size: service
+        technology: code-inspection-platform
+        tags:
+            - codeql
+        internet: true
+        machine: virtual
+        encryption: none
+        owner: dfe
+        confidentiality: confidential
+        integrity: important
+        availability: operational
+        justification_cia_rating: Sourcecode inspection platforms are rated at least 'important' in terms of integrity, because any malicious modification of it might lead to vulnerabilities found by the scanner engine not being shown.
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - sourcecode
+        data_assets_stored:
+            - sourcecode
+        data_formats_accepted:
+            - file
+        diagram_tweak_order: 0
+        communication_links: {}
+    GitHub Sourcecode Repository:
+        id: github-sourcecode-repository
+        description: github Sourcecode Repository
+        type: process
+        usage: devops
+        used_as_client_by_human: false
+        out_of_scope: false
+        justification_out_of_scope: ""
+        size: service
+        technology: sourcecode-repository
+        tags:
+            - github
+        internet: true
+        machine: virtual
+        encryption: none
+        owner: dfe
+        confidentiality: confidential
+        integrity: critical
+        availability: important
+        justification_cia_rating: Sourcecode processing components are at least rated as 'critical' in terms of integrity, because any malicious modification of it might lead to a backdoored production system.
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - sourcecode
+        data_assets_stored:
+            - sourcecode
+        data_formats_accepted:
+            - file
+        diagram_tweak_order: 0
+        communication_links: {}
+    GitHub Actions Build Pipeline:
+        id: github-actions-build-pipeline
+        description: GitHub Actions Build Pipeline
+        type: process
+        usage: devops
+        used_as_client_by_human: false
+        out_of_scope: false
+        justification_out_of_scope: ""
+        size: service
+        technology: build-pipeline
+        tags:
+            - github-actions
+        internet: true
+        machine: virtual
+        encryption: none
+        owner: dfe
+        confidentiality: confidential
+        integrity: critical
+        availability: important
+        justification_cia_rating: Build pipeline components are at least rated as 'critical' in terms of integrity, because any malicious modification of it might lead to a backdoored production system.
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - sourcecode
+        data_assets_stored:
+            - sourcecode
+        data_formats_accepted:
+            - file
+        diagram_tweak_order: 0
+        communication_links:
+            Code Inspection Platform Traffic:
+                target: codeql-code-inspection
+                description: Code Inspection Platform Traffic
+                protocol: https
+                authentication: credentials
+                authorization: technical-user
+                tags: 
+                    - codeql
+                vpn: false
+                ip_filtered: false
+                readonly: false
+                usage: devops
+                data_assets_sent:
+                    - sourcecode
+                data_assets_received: []
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+            Function App Push:
+                target: rust-function-app
+                description: Deployment of the Rust function app and infrastructure
+                protocol: https
+                authentication: token
+                authorization: technical-user
+                tags: 
+                    - azure-function-app
+                vpn: false
+                ip_filtered: false
+                readonly: false
+                usage: devops
+                data_assets_sent:
+                    - sourcecode
+                data_assets_received:
+                    - sourcecode
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+            Sourcecode Repository Traffic:
+                target: github-sourcecode-repository
+                description: Sourcecode Repository Traffic
+                protocol: https
+                authentication: credentials
+                authorization: technical-user
+                tags: 
+                    - git
+                    - github
+                vpn: false
+                ip_filtered: false
+                readonly: true
+                usage: devops
+                data_assets_sent: []
+                data_assets_received:
+                    - sourcecode
+                diagram_tweak_weight: 0
+                diagram_tweak_constraint: false
+trust_boundaries:
+    GitHub Trust Boundary:
+        id: github-network
+        description: The GitHub ecosystem
+        type: network-cloud-provider
+        tags: 
+          - github
+        technical_assets_inside:
+            - github-sourcecode-repository
+            - github-actions-build-pipeline
+            - codeql-code-inspection
+        trust_boundaries_nested: []
+    Azure Trust Boundary:
+        id: azure-network
+        description: The Azure ecosystem
+        type: network-cloud-provider
+        tags: 
+          - azure
+          - azure-function-app
+          - azure-key-vault
+        technical_assets_inside:
+          - rust-function-app
+          - key-vault
+        trust_boundaries_nested: []
+    Splunk Trust Boundary:
+        id: splunk-network
+        description: The Splunk ecosystem
+        type: network-cloud-provider
+        tags: 
+          - splunk
+        technical_assets_inside:
+            - splunk
+        trust_boundaries_nested: []
+shared_runtimes: 
+individual_risk_categories:
+    Information Dislosure:
+        id: information-disclosure
+        description: The biggest risk to SSPHP is the leaking of sensitive system data, this is most likely to happen within Splunk due to the high number of users, including those from a third party supplier.
+        impact: Serious reputational damage, potential targeting of sensitive assets.
+        asvs: V4.1 - General Access Control, V2.2 General Authenticator Security
+        cheat_sheet: 
+        action: Gaining unauthorised access to Splunk and retrieving sensitive vulnerability and compliance data.
+        mitigation: Restrict number of users, continuously audit users, implement robust leavers processes, audit and alert on sensitive actions, hold audit logs for 90+ days, follow principle of least privilege, enforce SSO where possible, where SSO not possible - enforce MFA.
+        check: 
+        function: operations
+        stride: information-disclosure
+        detection_logic: User logs in after X amount of inactivity, User exfiltrates data from Splunk, User does not have MFA, User doesn't log in for X amount of time.
+        risk_assessment: The likelihood of this happening is medium as users are strictly trusted staff, the impact is high due to the sensitivity of data.
+        false_positives: Third party company doesn't keep DfE updated with staff churn.
+        model_failure_possible_reason: false
+        cwe: 200
+        risks_identified:
+            <b>Example Individual Risk</b> at <bSplunkCloud</b>:
+                severity: critical
+                exploitation_likelihood: likely
+                exploitation_impact: high
+                data_breach_probability: probable
+                data_breach_technical_assets:
+                  - splunk
+                most_relevant_data_asset: splunk-data
+                most_relevant_technical_asset: splunk
+                most_relevant_communication_link: ""
+                most_relevant_trust_boundary: splunk-network
+                most_relevant_shared_runtime: ""
+
+risk_tracking:
+  information-disclosure@splunk@splunk-network@splunk-data:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@github-actions-build-pipeline@rust-function-app@rust-function-app>build-pipeline-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@key-vault@rust-function-app@rust-function-app>retrieve-keys:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@rust-function-app@github-actions-build-pipeline@github-actions-build-pipeline>function-app-push:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@splunk@rust-function-app@rust-function-app>send-data-to-splunk:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@codeql-code-inspection@github-actions-build-pipeline@github-actions-build-pipeline>code-inspection-platform-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@codeql-code-inspection@rust-function-app@rust-function-app>code-inspection-platform-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@github-sourcecode-repository@github-actions-build-pipeline@github-actions-build-pipeline>sourcecode-repository-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unguarded-access-from-internet@github-sourcecode-repository@rust-function-app@rust-function-app>sourcecode-repository-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@rust-function-app@key-vault@rust-function-app>retrieve-keys:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@rust-function-app@various-service-rest-endpoints@rust-function-app>api-calls-to-services:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@github-actions-build-pipeline@codeql-code-inspection@github-actions-build-pipeline>code-inspection-platform-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@github-actions-build-pipeline@rust-function-app@github-actions-build-pipeline>function-app-push:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@github-actions-build-pipeline@github-sourcecode-repository@github-actions-build-pipeline>sourcecode-repository-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@rust-function-app@codeql-code-inspection@rust-function-app>code-inspection-platform-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@rust-function-app@github-actions-build-pipeline@rust-function-app>build-pipeline-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@rust-function-app@splunk@rust-function-app>send-data-to-splunk:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  server-side-request-forgery@rust-function-app@github-sourcecode-repository@rust-function-app>sourcecode-repository-traffic:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  accidental-secret-leak@github-sourcecode-repository:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unchecked-deployment@github-actions-build-pipeline:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unchecked-deployment@codeql-code-inspection:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unchecked-deployment@github-sourcecode-repository:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unencrypted-asset@rust-function-app:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unencrypted-asset@codeql-code-inspection:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unencrypted-asset@github-actions-build-pipeline:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  unencrypted-asset@github-sourcecode-repository:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  push-instead-of-pull-deployment@github-actions-build-pipeline:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  missing-cloud-hardening@azure-network:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  missing-cloud-hardening@splunk-network:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  missing-cloud-hardening@github-network:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  missing-hardening@key-vault:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  missing-hardening@rust-function-app:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  missing-hardening@splunk:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  code-backdooring@github-actions-build-pipeline:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  code-backdooring@github-sourcecode-repository:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  code-backdooring@codeql-code-inspection:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+  missing-vault-isolation@key-vault:
+    status: unchecked
+    justification:
+    ticket:
+    date: "2024-05-02"
+    checked_by:
+
+
+
+# diagram_tweak_nodesep: 0
+# diagram_tweak_ranksep: 0
+# diagram_tweak_edge_layout: ""
+# diagram_tweak_suppress_edge_labels: false
+# diagram_tweak_layout_left_to_right: false
+# diagram_tweak_invisible_connections_between_assets: []
+# diagram_tweak_same_rank_assets: []
