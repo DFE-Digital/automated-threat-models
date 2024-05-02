@@ -9,9 +9,9 @@ As part of secure by design principles we should be:
 * running threat models for every service
 * producing the results and reporting them
 
-This example is based on a real service called service-security-posture-hardening (run as an internal tool by CISD). 
+This example is based on a real service called [service-security-posture-hardening (run as an internal tool by CISD)](https://github.com/DFE-Digital/service-security-posture-hardening). 
 
-The main tool used is called threagile, and it is run as a docker container. 
+The [main tool used is called threagile](https://github.com/Threagile/threagile), and it is run as a docker container. 
 
 Using GitHub Actions, Docker, and Splunk, we can continuously watch the yaml file that holds the data for your threat model, and when changes are made, they produce new reports that can be ingested into Splunk.
 
@@ -35,10 +35,21 @@ Before getting started, you will need to install:
 
 It's advisable to create a stub and example model from threagile to give you a framework YAML file to work with and a thorough example with hints you can copy.
 
-Create a stub: `$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -create-stub-model -output /app/work`
-Create an example: `$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -create-example-model -output /app/work`
+#### Create a stub
+```shell
+$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -create-stub-model -output /app/work
+```
 
-If you wish to use a schema or template in your IDE to make life easier, these can also be created by running: `$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -create-editing-support -output /app/work`
+#### Create an example
+
+```shell
+$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -create-example-model -output /app/work
+```
+
+#### Use a schema or template in your IDE
+```shell
+$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -create-editing-support -output /app/work
+```
 
 ### Using hints, comments and macros
 
@@ -66,7 +77,11 @@ seed-tags --> Seed Tags
 
 The "Add Build Pipeline" is especially useful, as it will allow you to add all your assets relating to GitHub, Azure Devops, Kubernetes, Docker Hub, packages etc.
 
-To run a macro you will need to run: `$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -model /app/work/threagile.yaml -output /app/work -execute-model-macro <NAME>`
+To run a macro you will need to run: 
+
+```shell
+$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -model /app/work/threagile.yaml -output /app/work -execute-model-macro <NAME>
+```
 
 
 ### Filling in the YAML with your system data
@@ -91,11 +106,16 @@ Then work your way down the YAML. The YAML consists of:
 
 Once you've produced your YAMl model, you will need to run the command shown below to produce your outputs:
 
-`$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -verbose -model /app/work/YOUR_YAML.yaml -output /app/work`
+```shell
+$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -verbose -model /app/work/YOUR_YAML.yaml -output /app/work
+```
 
 If you're happy with the outputs, and would like to start tracking your risks/mitigations, you can run the python script in this repo to produce the YAML required for the bottom section of your YAML file:
 
-`$ python3 produce_risk_tracker.py` (default values currently hardcoded)
+```shell
+$ python3 produce_risk_tracker.py
+``` 
+(default values currently hardcoded)
 
 The output it provides comes from your risks.json that threagile produces, and puts it in the format required for the risk tracking section at the bottom of your YAML, simply copy and paste the output. You can then rerun it and the risks will be updated in the reporting outputs.
 
