@@ -21,13 +21,13 @@ jobs:
         
         - name: Run threagile
           id: threagile-test-optional-args
-          uses: pritchyspritch/run-threagile-action@add-optional-params
+          uses: pritchyspritch/run-threagile-action@v2
           with:
             optional-args: '--help'
 
         - name: Run threagile
           id: threagile
-          uses: pritchyspritch/run-threagile-action@add-optional-params
+          uses: pritchyspritch/run-threagile-action@v2
           with:
             model-file: 'threagile-SSPHP-model.yaml'
             output-dir: 'test/location'
