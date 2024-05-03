@@ -34,7 +34,7 @@ jobs:
 
         
         - name: Upload Artifacts
-          uses: actions/upload-artifact@4
+          uses: actions/upload-artifact@v4
           with:
             name: threat-model-output
             path: test/location
