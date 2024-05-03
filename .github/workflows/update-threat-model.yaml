@@ -9,7 +9,8 @@ on:
     branches: [ main ]
     paths:
       - 'threagile-SSPHP-model.yaml'
-
+      - '.github/workflows/update-threat-model.yaml'
+  workflow_dispatch:
 jobs:
     UpdateTM:
       runs-on: ubuntu-latest
