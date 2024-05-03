@@ -123,8 +123,8 @@ The output it provides comes from your risks.json that threagile produces, and p
 
 # TODO / Roadmap
 
-- [ ] example GitHub Action to watch file
-- [ ] use params for python
+- [x] example GitHub Action to watch file
+- [x] use params for python
 - [ ] produce example sections for common design patterns
 - [ ] improve readme
 - [ ] automate more of the yaml building beyond what threagile can do

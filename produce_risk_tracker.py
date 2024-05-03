@@ -1,5 +1,6 @@
 import json
 import datetime
+import argparse
 
 
 def print_yaml(risk_dict):
@@ -11,8 +12,8 @@ def print_yaml(risk_dict):
     print(f"    checked_by: ")
 
 
-def read_risks_json():
-    file = open('risks.json')
+def read_risks_json(file_path):
+    file = open(file_path)
     data = json.load(file)
 
     date_today_obj = datetime.datetime.now()
@@ -31,4 +32,10 @@ def read_risks_json():
 
 
 if __name__ == '__main__':
-    read_risks_json()
+    parser = argparse.ArgumentParser(description='Process some integers.')
+
+    parser.add_argument('--file', nargs='?', default='risks.json', help='The file path for you risks json file')
+
+    args = parser.parse_args()
+
+    read_risks_json(args.file)
