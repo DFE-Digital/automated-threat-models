@@ -1,0 +1,39 @@
+name: Update Threat Model Outputs
+
+permissions:
+  actions: read
+  contents: read
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'threagile-SSPHP-model.yaml'
+
+jobs:
+    UpdateTM:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+        
+        - name: Run threagile
+          id: threagile-test-optional-args
+          uses: pritchyspritch/run-threagile-action@add-optional-params
+          with:
+            optional-args: '--help'
+
+        - name: Run threagile
+          id: threagile
+          uses: pritchyspritch/run-threagile-action@add-optional-params
+          with:
+            model-file: 'threagile-SSPHP-model.yaml'
+            output-dir: 'test/location'
+
+        
+        - name: Upload Artifacts
+          uses: actions/upload-artifact@4
+          with:
+            name: threat-model-output
+            path: test/location
