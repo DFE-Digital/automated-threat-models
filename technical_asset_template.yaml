@@ -1,0 +1,52 @@
+    {{name}}:
+        id: {{name}}
+        description: {{description}}
+        type: external-entity
+        usage: business
+        used_as_client_by_human: false
+        out_of_scope: false
+        justification_out_of_scope: 
+        size: {{size}}
+        technology: {{technology}}
+        tags: 
+            - {{type}}
+        internet: true
+        machine: {{machine}}
+        encryption: none
+        owner: dfe
+        confidentiality: confidential
+        integrity: critical
+        availability: important
+        justification_cia_rating: Placeholder
+        multi_tenant: false
+        redundant: false
+        custom_developed_parts: false
+        data_assets_processed:
+            - tbc
+        data_assets_stored:
+            - tbc
+        data_formats_accepted:
+            - tbc
+        diagram_tweak_order: 0
+        communication_links:
+            # API Calls to Services:
+            #     target: various-service-rest-endpoints
+            #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+            #     protocol: https
+            #     authentication: token
+            #     authorization: technical-user
+            #     tags: 
+            #         - azure
+            #         - o365
+            #         - github
+            #     vpn: false
+            #     ip_filtered: false
+            #     readonly: true
+            #     usage: business
+            #     data_assets_sent:
+            #         - secrets-and-api-keys
+            #         - sourcecode
+            #     data_assets_received:
+            #         - splunk-data
+            #     diagram_tweak_weight: 0
+            #     diagram_tweak_constraint: false

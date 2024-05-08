@@ -3,7 +3,7 @@ import datetime
 import argparse
 
 
-def print_yaml(risk_dict):
+def print_yaml(risk_dict: dict):
     print(f"  {risk_dict['name']}:")
     print(f"    status: {risk_dict['status']}")
     print(f"    justification: ")
@@ -12,7 +12,7 @@ def print_yaml(risk_dict):
     print(f"    checked_by: ")
 
 
-def read_risks_json(file_path):
+def read_risks_json(file_path: str):
     file = open(file_path)
     data = json.load(file)
 
