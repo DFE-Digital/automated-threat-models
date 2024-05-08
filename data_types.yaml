@@ -1,0 +1,21 @@
+data_types:
+  teacher-pii:
+    name: teacher-pii
+    id: teacher-pii
+    description: Teachers personal information
+    usage: business # values: business, devops
+    tags:
+      - teacher-pii
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Teacher data might contain personally identifiable information (PII). The integrity and
+      availability of teacher data is required for clearing payment disputes.
