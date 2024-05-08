@@ -9,7 +9,8 @@ def temp_file_read() -> list:
     lines = file.readlines()
 
     for line in lines:
-        data_list.append(line)
+        stripped_line = json.loads(line.strip())
+        data_list.append(stripped_line)
 
     return data_list
 
@@ -23,8 +24,9 @@ def build_container_app_tm(name: str, asset_type: str) -> str:
         "technology": "web-application",
         "machine": "container"
     }
-
-    tech_asset_template = Template("tecnical_asset_template.yaml")
+    template_file = open("technical_asset_template.yaml")
+    template_str = template_file.read()
+    tech_asset_template = Template(template_str)
     container_app_asset_yaml = tech_asset_template.render(container_app_dict)
 
     return container_app_asset_yaml
@@ -40,3 +42,8 @@ def produce_assets():
         if asset_type == "microsoft.app/containerapps":
             container_app_asset_yaml = build_container_app_tm(name, asset_type)
             print(container_app_asset_yaml)
+
+
+
+if __name__ == '__main__':
+    produce_assets()
