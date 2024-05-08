@@ -32,8 +32,9 @@ def build_container_app_tm(name: str, asset_type: str) -> str:
     return container_app_asset_yaml
 
 
-def produce_assets():
+def produce_assets() -> list:
     assets_list = temp_file_read()
+    yaml_list = []
 
     for asset in assets_list:
         name = asset["result"]["name"]
@@ -41,9 +42,22 @@ def produce_assets():
 
         if asset_type == "microsoft.app/containerapps":
             container_app_asset_yaml = build_container_app_tm(name, asset_type)
+            yaml_list.append(container_app_asset_yaml)
             print(container_app_asset_yaml)
+    
+    return yaml_list
 
+
+def write_assets_to_yaml():
+    yaml_list = produce_assets()
+
+    template_file = open("threagile-example-model-template.yaml")
+    template_str = template_file.read()
+    tech_asset_template = Template(template_str)
+    final_yaml = tech_asset_template.render(yaml_list=yaml_list)
+    print(final_yaml)
+    
 
 
 if __name__ == '__main__':
-    produce_assets()
+    write_assets_to_yaml()
