@@ -1,0 +1,186 @@
+data_assets:
+  teacher-pii: &teacher-pii
+    name: teacher-pii
+    id: teacher-pii
+    description: Teachers personal information
+    usage: business # values: business, devops
+    tags:
+      - teacher-pii
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Teacher data might contain personally identifiable information (PII). The integrity and
+      availability of teacher data is required for functioning of the service.
+  
+  student-pii:
+    <<: *teacher-pii
+    name: student-pii
+    id: student-pii
+    description: Students personal information
+    usage: business # values: business, devops
+    tags:
+      - student-pii
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Student data might contain personally identifiable information (PII). The integrity and
+      availability of student data is required for functioning of the service.
+
+  client-application-code: &client-application-code # this example shows the inheritance-like features of YAML
+    id: client-application-code
+    description: Angular and other client-side code delivered by the application.
+    usage: devops # values: business, devops
+    tags:
+      - client-application-code
+      - github
+      - git
+      - code
+      - html
+      - javascript
+    origin: DfE
+    owner: DfE
+    quantity: very-few # values: very-few, few, many, very-many
+    confidentiality: public # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: important # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      The integrity of the public data is critical to avoid reputational damage and the availability is important on the
+      long-term scale (but not critical) to keep the growth rate of the customer base steady.
+
+
+  server-application-code:
+    <<: *client-application-code # here we're referencing the above created asset as base and just overwrite few values
+    id: server-application-code
+    description: API and other server-side code of the application.
+    tags:
+      - server-application-code
+      - github
+      - git
+      - code
+      - ruby
+    integrity: mission-critical # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      The integrity of the API code is critical to avoid reputational damage and the availability is important on the
+      long-term scale (but not critical) to keep the growth rate of the customer base steady.
+
+  vulnerable-children-data:
+    name: vulnerable-children-data
+    id: vulnerable-children-data
+    description: Names, addresses and sensitive details of vulnerable children.
+    usage: business # values: business, devops
+    tags:
+      - vulnerable-children-data
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: mission-critical # values: archive, operational, important, critical, mission-critical
+    availability: critical # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      The data of vulnerable children is strictly confidential, and would cause serious harm if made public.
+
+
+  job-information:
+    name: job-information
+    id: job-information
+    description: Job information and vacancies for teaching and education positions.
+    usage: business # values: business, devops
+    tags:
+      - job-information
+      - database
+      - azure
+      - public
+    origin: DfE
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: public # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: important # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Job information is important but is public information in it's nature.
+
+
+  school-data:
+    name: school-data
+    id: school-data
+    description: School data, insights, statistics, and records.
+    usage: business # values: business, devops
+    tags:
+      - school-data
+      - database
+      - azure
+      - internal
+    origin: Schools
+    owner: DfE
+    quantity: very-many # values: very-few, few, many, very-many
+    confidentiality: internal # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      School data is collected to provide useful insights in how schools are doing from a social, financial
+      and academic point of view, but most of this information is either already public or can be made available on request.
+
+
+
+  teacher-pii:
+    name: teacher-pii
+    id: teacher-pii
+    description: Teachers personal information
+    usage: business # values: business, devops
+    tags:
+      - teacher-pii
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Teacher data might contain personally identifiable information (PII). The integrity and
+      availability of teacher data is required for clearing payment disputes.
+
+
+  teacher-pii:
+    name: teacher-pii
+    id: teacher-pii
+    description: Teachers personal information
+    usage: business # values: business, devops
+    tags:
+      - teacher-pii
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Teacher data might contain personally identifiable information (PII). The integrity and
+      availability of teacher data is required for clearing payment disputes.
