@@ -142,45 +142,44 @@ data_assets:
 
 
 
-  teacher-pii:
-    name: teacher-pii
-    id: teacher-pii
-    description: Teachers personal information
+  payment-details:
+    name: payment-details
+    id: payment-details
+    description: Payment details to receive or send money to/from users.
     usage: business # values: business, devops
     tags:
-      - teacher-pii
+      - payment-details
       - database
       - azure
       - sensitive
-      - pii
+      - pci
+      - bank-account-details
     origin: Customer
     owner: DfE
     quantity: many # values: very-few, few, many, very-many
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
     integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: operational # values: archive, operational, important, critical, mission-critical
+    availability: important # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Teacher data might contain personally identifiable information (PII). The integrity and
-      availability of teacher data is required for clearing payment disputes.
+      Payment details could be PCI or bank account details, either to take payments or to send money to/from the customer.
 
 
-  teacher-pii:
-    name: teacher-pii
-    id: teacher-pii
+  secrets-and-api-keys:
+    name: secrets-and-api-keys
+    id: secrets-and-api-keys
     description: Teachers personal information
     usage: business # values: business, devops
     tags:
-      - teacher-pii
-      - database
+      - secrets-and-api-keys
+      - keyvault
       - azure
       - sensitive
-      - pii
-    origin: Customer
+      - azure-key-vaylt
+    origin: DfE
     owner: DfE
     quantity: many # values: very-few, few, many, very-many
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: operational # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Teacher data might contain personally identifiable information (PII). The integrity and
-      availability of teacher data is required for clearing payment disputes.
+      Secrets and API keys are critical and would result in serious breach and reputational damage if found.
