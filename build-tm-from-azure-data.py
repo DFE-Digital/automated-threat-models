@@ -1,6 +1,9 @@
 import json
+import yaml
 
 from jinja2 import Template
+from build_tech_assets import build_container_app_tm, build_key_vault_tm, build_cache_tm
+from build_data_assets import build_client_app_data_asset, build_job_information_data_asset, build_payment_details_asset, build_school_data_asset, build_secrets_asset, build_server_app_data_asset, build_student_pii_data_asset, build_teacher_pii_data_asset, build_vulnerable_children_data_asset
 
 
 def temp_file_read() -> list:
@@ -13,57 +16,6 @@ def temp_file_read() -> list:
         data_list.append(stripped_line)
 
     return data_list
-
-
-def build_container_app_tm(name: str, asset_type: str) -> str:
-    container_app_dict = {
-        "name": name,
-        "type": asset_type.split('/')[0],
-        "description": "A container app running a web application for the public.",
-        "size": "application",
-        "technology": "web-application",
-        "machine": "container"
-    }
-    template_file = open("technical_asset_template.yaml")
-    template_str = template_file.read()
-    tech_asset_template = Template(template_str)
-    container_app_asset_yaml = tech_asset_template.render(container_app_dict)
-
-    return container_app_asset_yaml
-
-
-def build_key_vault_tm(name: str, asset_type: str) -> str:
-    container_app_dict = {
-        "name": name,
-        "type": asset_type.split('/')[0],
-        "description": "A key vault used to hold sensitive keys, secrets, and config.",
-        "size": "service",
-        "technology": "vault",
-        "machine": "virtual"
-    }
-    template_file = open("technical_asset_template.yaml")
-    template_str = template_file.read()
-    tech_asset_template = Template(template_str)
-    container_app_asset_yaml = tech_asset_template.render(container_app_dict)
-
-    return container_app_asset_yaml
-
-
-def build_cache_tm(name: str, asset_type: str) -> str:
-    container_app_dict = {
-        "name": name,
-        "type": asset_type.split('/')[0],
-        "description": "A redis cache for holding data for reliability.",
-        "size": "service",
-        "technology": "database",
-        "machine": "virtual"
-    }
-    template_file = open("technical_asset_template.yaml")
-    template_str = template_file.read()
-    tech_asset_template = Template(template_str)
-    container_app_asset_yaml = tech_asset_template.render(container_app_dict)
-
-    return container_app_asset_yaml
 
 
 def produce_assets() -> list:
@@ -89,15 +41,127 @@ def produce_assets() -> list:
     return yaml_list
 
 
-def write_assets_to_yaml():
-    yaml_list = produce_assets()
+def data_assets() -> list:
+    answers = ["y", "n"]
+    dicts = []
 
+    teacher_pii=""
+    while teacher_pii.lower() not in answers:
+        teacher_pii = input("Does your app handle teacher Personal Information? (Y/N): ") or "y"
+    if teacher_pii.lower() == "y":
+        teacher_pii = True
+    else:
+        teacher_pii = False
+    dicts.append(dict(name="teacher-pii", present=teacher_pii))
+
+    student_pii=""
+    while student_pii.lower() not in answers:
+        student_pii = input("Does your app handle student Personal Information? (Y/N): ")  or "y"
+    if student_pii.lower() == "y":
+        student_pii = True
+    else:
+        student_pii = False
+    dicts.append(dict(name="student-pii", present=student_pii))
+
+    client_app_code=""
+    while client_app_code.lower() not in answers:
+        client_app_code = input("Does your app include client side code (JavaScript/HTML)? (Y/N): ") or "y"
+    
+    if client_app_code.lower() == "y":
+        client_app_code = True
+    else:
+        client_app_code = False
+    dicts.append(dict(name="client-application-code", present=client_app_code))
+
+    server_app_code=""
+    while server_app_code.lower() not in answers:
+        server_app_code = input("Does your app include server side code (Ruby/C#/Python/Rust/etc)? (Y/N): ") or "y"
+    if server_app_code.lower() == "y":
+        server_app_code = True
+    else:
+        server_app_code = False
+    dicts.append(dict(name="server-application-code", present=server_app_code))
+
+    vulnerable_children_data=""
+    while vulnerable_children_data.lower() not in answers:
+        vulnerable_children_data = input("Does your app handle the data relating to vulnerable children? (Y/N): ") or "y"
+    if vulnerable_children_data.lower() == "y":
+        vulnerable_children_data = True
+    else:
+        vulnerable_children_data = False
+    dicts.append(dict(name="vulnerable-children-data", present=vulnerable_children_data))
+
+    job_information=""
+    while job_information.lower() not in answers:
+        job_information = input("Does your app handle information relating to jobs? (Y/N): ") or "y" 
+    if job_information.lower() == "y":
+        job_information = True
+    else:
+        job_information = False
+    dicts.append(dict(name="job-information", present=job_information))
+
+    school_data=""
+    while school_data.lower() not in answers:
+        school_data = input("Does your app handle data relating to schools? (Y/N): ") or "y" 
+    if school_data.lower() == "y":
+        school_data = True
+    else:
+        school_data = False
+    dicts.append(dict(name="school-data", present=school_data))
+
+    payment_details=""
+    while payment_details.lower() not in answers:
+        payment_details = input("Does your app handle payment information such a credit card of bank account details? (Y/N): ") or "y" 
+    if payment_details.lower() == "y":
+        payment_details = True
+    else:
+        payment_details = False
+    dicts.append(dict(name="payment-details", present=payment_details))
+
+    secrets_and_keys=""
+    while secrets_and_keys.lower() not in answers:
+        secrets_and_keys = input("Does your app utilise keys, secrets, and a vault to store them? (Y/N): ") or "y" 
+    if secrets_and_keys.lower() == "y":
+        secrets_and_keys = True
+    else:
+        secrets_and_keys = False
+    dicts.append(dict(name="secrets-and-api-keys", present=secrets_and_keys))
+
+    return dicts
+
+
+def template_inject(yaml_list: list, data_type: str):
     template_file = open("threagile-example-model-template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
-    final_yaml = tech_asset_template.render(yaml_list=yaml_list)
-    print(final_yaml)
+    if data_type == "technical_assets":
+        final_yaml = tech_asset_template.render(yaml_list=yaml_list)
+    elif data_type == "data_assets":
+        final_yaml = tech_asset_template.render(data_list=yaml_list)
+    return final_yaml
+
+
+def write_assets_to_yaml():
+    yaml_list = produce_assets()
+
+    final_yaml = template_inject(yaml_list, data_type="technical_assets")
     
+    print(final_yaml)
+
+    chosen_data_assets_dicts = data_assets()
+
+    # replace with template code from build_data_assets - see produce_assets()
+    asset_yaml_list = []
+    for data_asset in chosen_data_assets_dicts:
+        if data_asset["present"]:
+            with open("data_assets.yaml", 'r') as f:
+                values_yaml = yaml.load(f, Loader=yaml.FullLoader)
+                asset_yaml = values_yaml['data_assets'][data_asset["name"]]
+                asset_yaml_list.append(yaml.dump(asset_yaml, sort_keys=False))
+    
+
+    final_yaml = template_inject(asset_yaml_list, data_type="data_assets")
+    print(final_yaml)
 
 
 if __name__ == '__main__':

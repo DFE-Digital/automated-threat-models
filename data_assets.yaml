@@ -17,8 +17,7 @@ data_assets:
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: operational # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Teacher data might contain personally identifiable information (PII). The integrity and
-      availability of teacher data is required for functioning of the service.
+      Teacher data might contain personally identifiable information (PII). The integrity and availability of teacher data is required for functioning of the service.
   
   student-pii:
     <<: *teacher-pii
@@ -39,8 +38,7 @@ data_assets:
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: operational # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Student data might contain personally identifiable information (PII). The integrity and
-      availability of student data is required for functioning of the service.
+      Student data might contain personally identifiable information (PII). The integrity and availability of student data is required for functioning of the service.
 
   client-application-code: &client-application-code # this example shows the inheritance-like features of YAML
     id: client-application-code
@@ -60,8 +58,7 @@ data_assets:
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: important # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      The integrity of the public data is critical to avoid reputational damage and the availability is important on the
-      long-term scale (but not critical) to keep the growth rate of the customer base steady.
+      The integrity of the public data is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to keep the growth rate of the customer base steady.
 
 
   server-application-code:
@@ -76,8 +73,7 @@ data_assets:
       - ruby
     integrity: mission-critical # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      The integrity of the API code is critical to avoid reputational damage and the availability is important on the
-      long-term scale (but not critical) to keep the growth rate of the customer base steady.
+      The integrity of the API code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to keep the growth rate of the customer base steady.
 
   vulnerable-children-data:
     name: vulnerable-children-data
@@ -137,8 +133,7 @@ data_assets:
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: operational # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      School data is collected to provide useful insights in how schools are doing from a social, financial
-      and academic point of view, but most of this information is either already public or can be made available on request.
+      School data is collected to provide useful insights in how schools are doing from a social, financial and academic point of view, but most of this information is either already public or can be made available on request.
 
 
 
