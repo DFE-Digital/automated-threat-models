@@ -2,7 +2,7 @@ import json
 import yaml
 
 from jinja2 import Template
-from build_tech_assets import build_container_app_tm, build_key_vault_tm, build_cache_tm
+from build_tech_assets import build_container_app_tm, build_key_vault_tm, build_cache_tm, build_app_service_tm
 from build_data_assets import build_client_app_data_asset, build_job_information_data_asset, build_payment_details_asset, build_school_data_asset, build_secrets_asset, build_server_app_data_asset, build_student_pii_data_asset, build_teacher_pii_data_asset, build_vulnerable_children_data_asset
 
 
@@ -26,18 +26,26 @@ def produce_assets() -> list:
         name = asset["result"]["name"]
         asset_type = asset["result"]["type"]
 
-        if asset_type == "microsoft.app/containerapps":
-            container_app_asset_yaml = build_container_app_tm(name, asset_type)
-            yaml_list.append(container_app_asset_yaml)
-            print(container_app_asset_yaml)
-        elif asset_type == "microsoft.keyvault/vaults":
-            container_app_asset_yaml = build_key_vault_tm(name, asset_type)
-            yaml_list.append(container_app_asset_yaml)
-            print(container_app_asset_yaml)
-        elif asset_type == "microsoft.cache/redis":
-            container_app_asset_yaml = build_cache_tm(name, asset_type)
-            yaml_list.append(container_app_asset_yaml)
-            print(container_app_asset_yaml)
+        match asset_type:
+            case "microsoft.app/containerapps":
+                container_app_asset_yaml = build_container_app_tm(name, asset_type)
+                yaml_list.append(container_app_asset_yaml)
+                print(container_app_asset_yaml)
+            case "microsoft.keyvault/vaults":
+                key_vault_asset_yaml = build_key_vault_tm(name, asset_type)
+                yaml_list.append(key_vault_asset_yaml)
+                print(key_vault_asset_yaml)
+            case "microsoft.cache/redis":
+                redis_cache_asset_yaml = build_cache_tm(name, asset_type)
+                yaml_list.append(redis_cache_asset_yaml)
+                print(redis_cache_asset_yaml)
+            case "microsoft.web/sites":
+                kind = asset["result"]["kind"]
+                app_service_yaml = build_app_service_tm(name, asset_type, kind)
+                yaml_list.append(app_service_yaml)
+                print(app_service_yaml)
+
+
     return yaml_list
 
 
