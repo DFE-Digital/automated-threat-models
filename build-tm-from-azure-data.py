@@ -130,37 +130,58 @@ def data_assets() -> list:
     return dicts
 
 
-def template_inject(yaml_list: list, data_type: str):
+def template_inject(yaml_list: list, data_list: list) -> str:
     template_file = open("threagile-example-model-template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
-    if data_type == "technical_assets":
-        final_yaml = tech_asset_template.render(yaml_list=yaml_list)
-    elif data_type == "data_assets":
-        final_yaml = tech_asset_template.render(data_list=yaml_list)
+    final_yaml = tech_asset_template.render(yaml_list=yaml_list, data_list=data_list)
     return final_yaml
+
+
+def produce_data_assets(chosen_data_asset_dicts: list) -> list:
+    built_data_assets = []
+    for data_asset in chosen_data_asset_dicts:
+        if data_asset["present"]:
+            match data_asset["name"]:
+                case "teacher-pii":
+                    teacher_pii = build_teacher_pii_data_asset()
+                    built_data_assets.append(teacher_pii)
+                case "student-pii":
+                    student_pii = build_student_pii_data_asset()
+                    built_data_assets.append(student_pii)
+                case "client-application-code":
+                    client_application_code = build_client_app_data_asset()
+                    built_data_assets.append(client_application_code)
+                case "server-application-code":
+                    server_application_code = build_server_app_data_asset()
+                    built_data_assets.append(server_application_code)
+                case "vulnerable-children-data":
+                    vulnerable_children_data = build_vulnerable_children_data_asset()
+                    built_data_assets.append(vulnerable_children_data)
+                case "job-information":
+                    job_information = build_job_information_data_asset()
+                    built_data_assets.append(job_information)
+                case "school-data":
+                    school_data = build_school_data_asset()
+                    built_data_assets.append(school_data)
+                case "vulnerable-children-data":
+                    vulnerable_children_data = build_payment_details_asset()
+                    built_data_assets.append(vulnerable_children_data)
+                case "vulnerable-children-data":
+                    vulnerable_children_data = build_secrets_asset()
+                    built_data_assets.append(vulnerable_children_data)
+    
+    return built_data_assets
 
 
 def write_assets_to_yaml():
     yaml_list = produce_assets()
 
-    final_yaml = template_inject(yaml_list, data_type="technical_assets")
-    
-    print(final_yaml)
-
     chosen_data_assets_dicts = data_assets()
 
-    # replace with template code from build_data_assets - see produce_assets()
-    asset_yaml_list = []
-    for data_asset in chosen_data_assets_dicts:
-        if data_asset["present"]:
-            with open("data_assets.yaml", 'r') as f:
-                values_yaml = yaml.load(f, Loader=yaml.FullLoader)
-                asset_yaml = values_yaml['data_assets'][data_asset["name"]]
-                asset_yaml_list.append(yaml.dump(asset_yaml, sort_keys=False))
-    
+    data_list = produce_data_assets(chosen_data_assets_dicts)
 
-    final_yaml = template_inject(asset_yaml_list, data_type="data_assets")
+    final_yaml = template_inject(yaml_list, data_list)
     print(final_yaml)
 
 
