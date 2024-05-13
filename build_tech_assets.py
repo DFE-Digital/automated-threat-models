@@ -112,3 +112,20 @@ def build_app_service_tm(name: str, asset_type: str, kind: str) -> str:
     app_service_asset_yaml = tech_asset_template.render(app_service_dict)
 
     return app_service_asset_yaml
+
+
+def build_storage_tm(name: str, asset_type: str):
+    storage_dict = {
+        "name": name,
+        "type": asset_type.split('/')[0],
+        "description": "An Azure Storage account holding storage blobs.",
+        "size": "service",
+        "technology": "block-storage",
+        "machine": "virtual"
+    }
+    template_file = open("technical_asset_template.yaml")
+    template_str = template_file.read()
+    tech_asset_template = Template(template_str)
+    storage_asset_yaml = tech_asset_template.render(storage_dict)
+
+    return storage_asset_yaml

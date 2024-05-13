@@ -1,7 +1,7 @@
 import json
 
 from jinja2 import Template
-from build_tech_assets import build_container_app_tm, build_key_vault_tm, build_cache_tm, build_app_service_tm
+from build_tech_assets import build_container_app_tm, build_key_vault_tm, build_cache_tm, build_app_service_tm, build_storage_tm
 from build_data_assets import build_client_app_data_asset, build_job_information_data_asset, build_payment_details_asset, build_school_data_asset, build_secrets_asset, build_server_app_data_asset, build_student_pii_data_asset, build_teacher_pii_data_asset, build_vulnerable_children_data_asset
 
 
@@ -43,6 +43,10 @@ def produce_assets() -> list:
                 app_service_yaml = build_app_service_tm(name, asset_type, kind)
                 yaml_list.append(app_service_yaml)
                 print(app_service_yaml)
+            case "microsoft.storage/storageaccounts":
+                storage_yaml = build_storage_tm(name, asset_type, kind)
+                yaml_list.append(storage_yaml)
+                print(storage_yaml)
 
 
     return yaml_list

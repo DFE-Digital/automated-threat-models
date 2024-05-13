@@ -2,6 +2,8 @@ import json
 import datetime
 import argparse
 
+from jinja2 import Template
+
 
 def print_yaml(risk_dict: dict):
     print(f"  {risk_dict['name']}:")
@@ -12,7 +14,16 @@ def print_yaml(risk_dict: dict):
     print(f"    checked_by: ")
 
 
-def read_risks_json(file_path: str):
+def build_risk(risk_dict: dict):
+    template_file = open("risks_template.yaml")
+    template_str = template_file.read()
+    risk_template = Template(template_str)
+    risk_yaml = risk_template.render(risk_dict)
+
+    return risk_yaml
+
+
+def read_risks_json(file_path: str) -> list:
     file = open(file_path)
     data = json.load(file)
 
@@ -21,14 +32,33 @@ def read_risks_json(file_path: str):
 
     print("risk_tracking:")
 
+    risks = []
+
     for risk in data:
         risk_dict = {
             "name": risk["synthetic_id"],
             "status": risk["risk_status"],
+            "justification": "Enter justification here.",
+            "ticket": "Enter ticket number relating to your risk and mitigations here.",
             "date": date_today_fmt,
+            "checked_by": "Enter name of owner/ reviewer here."
         }
 
         print_yaml(risk_dict)
+        risk_yaml = build_risk(risk_dict)
+        risks.append(risk_yaml)
+    
+    return risks
+
+
+def template_inject(risks: list) -> str:
+    # change to the output from asset builder
+    template_file = open("threagile-example-model-template.yaml")
+    template_str = template_file.read()
+    risks_template = Template(template_str)
+    final_yaml = risks_template.render(risks=risks)
+    print(final_yaml)
+    return final_yaml
 
 
 if __name__ == '__main__':
@@ -38,4 +68,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    read_risks_json(args.file)
+    risks = read_risks_json(args.file)
+
+    print(risks)
+
+    for risk in risks:
+        print(risk)
+
+    risks_output = template_inject(risks)
+
+    print(risks_output)
