@@ -1,7 +1,7 @@
 from jinja2 import Template
 
 
-def build_teacher_pii_data_asset() -> str:
+def build_teacher_pii_data_asset() -> tuple:
     data_asset_dict = {
         "name": "teacher-pii",
         "description": "Teachers personal information.",
@@ -20,10 +20,12 @@ def build_teacher_pii_data_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    teacher_pii_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, teacher_pii_tags
 
 
-def build_student_pii_data_asset() -> str:
+def build_student_pii_data_asset() -> tuple:
     data_asset_dict = {
         "name": "student-pii",
         "description": "Students personal information.",
@@ -42,10 +44,12 @@ def build_student_pii_data_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    student_pii_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, student_pii_tags
 
 
-def build_client_app_data_asset() -> str:
+def build_client_app_data_asset() -> tuple:
     data_asset_dict = {
         "name": "client-application-code",
         "description": "Client application code such as JavaScript and HTML.",
@@ -64,10 +68,12 @@ def build_client_app_data_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    client_app_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, client_app_tags
 
 
-def build_server_app_data_asset() -> str:
+def build_server_app_data_asset() -> tuple:
     data_asset_dict = {
         "name": "server-application-code",
         "description": "Server application code such as JavaScript and HTML.",
@@ -86,10 +92,12 @@ def build_server_app_data_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    server_app_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, server_app_tags
 
 
-def build_vulnerable_children_data_asset() -> str:
+def build_vulnerable_children_data_asset() -> tuple:
     data_asset_dict = {
         "name": "vulnerable-children-data",
         "description": "Names, addresses and sensitive details of vulnerable children.",
@@ -108,10 +116,12 @@ def build_vulnerable_children_data_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    vulnerable_children_data_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, vulnerable_children_data_tags
 
 
-def build_job_information_data_asset() -> str:
+def build_job_information_data_asset() -> tuple:
     data_asset_dict = {
         "name": "job-information",
         "description": "Names, addresses and sensitive details of vulnerable children.",
@@ -130,10 +140,12 @@ def build_job_information_data_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    job_info_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, job_info_tags
 
 
-def build_school_data_asset() -> str:
+def build_school_data_asset() -> tuple:
     data_asset_dict = {
         "name": "school-data",
         "description": "School data, insights, statistics, and records.",
@@ -152,10 +164,11 @@ def build_school_data_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    school_data_tags = data_asset_dict["tags_list"]
 
+    return data_asset_yaml, school_data_tags
 
-def build_payment_details_asset() -> str:
+def build_payment_details_asset() -> tuple:
     data_asset_dict = {
         "name": "payment-details",
         "description": "Payment details to receive or send money to/from users.",
@@ -174,10 +187,12 @@ def build_payment_details_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    teacher_pii_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, teacher_pii_tags
 
 
-def build_secrets_asset() -> str:
+def build_secrets_asset() -> tuple:
     data_asset_dict = {
         "name": "secrets-and-api-keys",
         "description": "Payment details to receive or send money to/from users.",
@@ -196,4 +211,6 @@ def build_secrets_asset() -> str:
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
-    return data_asset_yaml
+    teacher_pii_tags = data_asset_dict["tags_list"]
+
+    return data_asset_yaml, teacher_pii_tags

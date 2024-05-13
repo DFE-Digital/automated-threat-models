@@ -11,6 +11,7 @@ COPY --chown=1000:1000 produce_risk_tracker.py /app/
 COPY --chown=1000:1000 data_assets_template.yaml /app/
 COPY --chown=1000:1000 technical_asset_template.yaml /app/
 COPY --chown=1000:1000 threagile-example-model-template.yaml /app/
+COPY --chown=1000:1000 risks_template.yaml /app/
 
 COPY --chown=1000:1000 test-data.json /app/
 

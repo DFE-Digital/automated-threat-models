@@ -1,57 +1,66 @@
 from jinja2 import Template
 
 
-def build_container_app_tm(name: str, asset_type: str) -> str:
+def build_container_app_tm(name: str, asset_type: str) -> tuple:
     container_app_dict = {
         "name": name,
         "type": asset_type.split('/')[0],
         "description": "A container app running a web application for the public.",
         "size": "application",
         "technology": "web-application",
-        "machine": "container"
+        "machine": "container",
+        "tags": [name, "azure", "azure-container-app"]
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
     container_app_asset_yaml = tech_asset_template.render(container_app_dict)
 
-    return container_app_asset_yaml
+    tag_list = container_app_dict["tags"]
+
+    return container_app_asset_yaml, tag_list
 
 
-def build_key_vault_tm(name: str, asset_type: str) -> str:
+def build_key_vault_tm(name: str, asset_type: str) -> tuple:
     key_vault_dict = {
         "name": name,
         "type": asset_type.split('/')[0],
         "description": "A key vault used to hold sensitive keys, secrets, and config.",
         "size": "service",
         "technology": "vault",
-        "machine": "virtual"
+        "machine": "virtual",
+        "tags": [name, "azure", "azure-key-vault", "vault", "secrets", "keys"]
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
     key_vault_asset_yaml = tech_asset_template.render(key_vault_dict)
 
-    return key_vault_asset_yaml
+    tag_list = key_vault_dict["tags"]
+
+    return key_vault_asset_yaml, tag_list
 
 
-def build_cache_tm(name: str, asset_type: str) -> str:
+def build_cache_tm(name: str, asset_type: str) -> tuple:
     redis_cache_dict = {
         "name": name,
         "type": asset_type.split('/')[0],
         "description": "A redis cache for holding data for reliability.",
         "size": "service",
         "technology": "database",
-        "machine": "virtual"
+        "machine": "virtual",
+        "tags": [name, "azure", "azure-redis-cache", "cache"]
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
     redis_cache_asset_yaml = tech_asset_template.render(redis_cache_dict)
 
-    return redis_cache_asset_yaml
+    tag_list = redis_cache_dict["tags"]
 
-def build_app_service_tm(name: str, asset_type: str, kind: str) -> str:
+    return redis_cache_asset_yaml, tag_list
+
+def build_app_service_tm(name: str, asset_type: str, kind: str) -> tuple:
 
     kind_ref = ""
     technology = ""
@@ -104,28 +113,34 @@ def build_app_service_tm(name: str, asset_type: str, kind: str) -> str:
         "description": f"An app service plan, used to deploy a {kind_ref}",
         "size": "service",
         "technology": technology,
-        "machine": machine
+        "machine": machine,
+        "tags": [name, "azure", "azure-app-service", machine, technology]
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
     app_service_asset_yaml = tech_asset_template.render(app_service_dict)
 
-    return app_service_asset_yaml
+    tag_list = app_service_dict["tags"]
+
+    return app_service_asset_yaml, tag_list
 
 
-def build_storage_tm(name: str, asset_type: str):
+def build_storage_tm(name: str, asset_type: str) -> tuple:
     storage_dict = {
         "name": name,
         "type": asset_type.split('/')[0],
         "description": "An Azure Storage account holding storage blobs.",
         "size": "service",
         "technology": "block-storage",
-        "machine": "virtual"
+        "machine": "virtual",
+        "tags": [name, "azure", "azure-storage", "blob"]
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
     storage_asset_yaml = tech_asset_template.render(storage_dict)
 
-    return storage_asset_yaml
+    tag_list = storage_dict["tags"]
+
+    return storage_asset_yaml, tag_list

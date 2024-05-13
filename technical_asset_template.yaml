@@ -8,8 +8,10 @@
     justification_out_of_scope: 
     size: {{size}}
     technology: {{technology}}
-    tags: 
-        - {{type}}
+    tags:
+    {%- for tag in tags %}
+        - {{ tag }}
+    {%- endfor %}
     internet: true
     machine: {{machine}}
     encryption: none
@@ -21,12 +23,9 @@
     multi_tenant: false
     redundant: false
     custom_developed_parts: false
-    data_assets_processed:
-        - tbc
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
     data_assets_stored:
-        - tbc
     data_formats_accepted:
-        - tbc
     diagram_tweak_order: 0
     communication_links:
         # API Calls to Services:

@@ -51,9 +51,9 @@ def read_risks_json(file_path: str) -> list:
     return risks
 
 
-def template_inject(risks: list) -> str:
+def template_inject_risks(risks: list) -> str:
     # change to the output from asset builder
-    template_file = open("threagile-example-model-template.yaml")
+    template_file = open("threagile-pre-risks.yaml")
     template_str = template_file.read()
     risks_template = Template(template_str)
     final_yaml = risks_template.render(risks=risks)
@@ -62,7 +62,7 @@ def template_inject(risks: list) -> str:
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser()
 
     parser.add_argument('--file', nargs='?', default='risks.json', help='The file path for you risks json file')
 
@@ -70,11 +70,6 @@ if __name__ == '__main__':
 
     risks = read_risks_json(args.file)
 
-    print(risks)
-
-    for risk in risks:
-        print(risk)
-
-    risks_output = template_inject(risks)
+    risks_output = template_inject_risks(risks)
 
     print(risks_output)

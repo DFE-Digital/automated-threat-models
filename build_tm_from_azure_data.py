@@ -1,8 +1,12 @@
 import json
+import argparse
+import os
 
 from jinja2 import Template
+
 from build_tech_assets import build_container_app_tm, build_key_vault_tm, build_cache_tm, build_app_service_tm, build_storage_tm
 from build_data_assets import build_client_app_data_asset, build_job_information_data_asset, build_payment_details_asset, build_school_data_asset, build_secrets_asset, build_server_app_data_asset, build_student_pii_data_asset, build_teacher_pii_data_asset, build_vulnerable_children_data_asset
+from produce_risk_tracker import read_risks_json, template_inject_risks
 
 
 def temp_file_read() -> list:
@@ -20,6 +24,7 @@ def temp_file_read() -> list:
 def produce_assets() -> list:
     assets_list = temp_file_read()
     yaml_list = []
+    all_tech_tags = []
 
     for asset in assets_list:
         name = asset["result"]["name"]
@@ -27,29 +32,49 @@ def produce_assets() -> list:
 
         match asset_type:
             case "microsoft.app/containerapps":
-                container_app_asset_yaml = build_container_app_tm(name, asset_type)
+                container_app_asset_yaml, tag_list = build_container_app_tm(name, asset_type)
                 yaml_list.append(container_app_asset_yaml)
+                
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+
                 print(container_app_asset_yaml)
             case "microsoft.keyvault/vaults":
-                key_vault_asset_yaml = build_key_vault_tm(name, asset_type)
+                key_vault_asset_yaml, tag_list = build_key_vault_tm(name, asset_type)
                 yaml_list.append(key_vault_asset_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+                    
                 print(key_vault_asset_yaml)
             case "microsoft.cache/redis":
-                redis_cache_asset_yaml = build_cache_tm(name, asset_type)
+                redis_cache_asset_yaml, tag_list = build_cache_tm(name, asset_type)
                 yaml_list.append(redis_cache_asset_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+                    
                 print(redis_cache_asset_yaml)
             case "microsoft.web/sites":
                 kind = asset["result"]["kind"]
-                app_service_yaml = build_app_service_tm(name, asset_type, kind)
+                app_service_yaml, tag_list = build_app_service_tm(name, asset_type, kind)
                 yaml_list.append(app_service_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+                    
                 print(app_service_yaml)
             case "microsoft.storage/storageaccounts":
-                storage_yaml = build_storage_tm(name, asset_type, kind)
+                storage_yaml, tag_list = build_storage_tm(name, asset_type)
                 yaml_list.append(storage_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+                    
                 print(storage_yaml)
 
 
-    return yaml_list
+    return yaml_list, all_tech_tags
 
 
 def data_assets() -> list:
@@ -141,60 +166,118 @@ def data_assets() -> list:
     return dicts
 
 
-def template_inject(yaml_list: list, data_list: list) -> str:
+def template_inject(yaml_list: list, data_list: list, all_tags: list, risks: list = []) -> str:
     template_file = open("threagile-example-model-template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
-    final_yaml = tech_asset_template.render(yaml_list=yaml_list, data_list=data_list)
+
+    final_yaml = tech_asset_template.render(yaml_list=yaml_list, data_list=data_list, all_tags=all_tags, risks=risks)
+
     return final_yaml
 
 
 def produce_data_assets(chosen_data_asset_dicts: list) -> list:
     built_data_assets = []
+    all_data_tags = []
     for data_asset in chosen_data_asset_dicts:
         if data_asset["present"]:
             match data_asset["name"]:
                 case "teacher-pii":
-                    teacher_pii = build_teacher_pii_data_asset()
+                    teacher_pii, teacher_pii_tags = build_teacher_pii_data_asset()
                     built_data_assets.append(teacher_pii)
+                    for tags in teacher_pii_tags:
+                        all_data_tags.append(tags)
                 case "student-pii":
-                    student_pii = build_student_pii_data_asset()
+                    student_pii, student_pii_tags = build_student_pii_data_asset()
                     built_data_assets.append(student_pii)
+                    for tags in student_pii_tags:
+                        all_data_tags.append(tags)
                 case "client-application-code":
-                    client_application_code = build_client_app_data_asset()
+                    client_application_code, client_app_tags = build_client_app_data_asset()
                     built_data_assets.append(client_application_code)
+                    for tags in client_app_tags:
+                        all_data_tags.append(tags)
                 case "server-application-code":
-                    server_application_code = build_server_app_data_asset()
+                    server_application_code, server_app_tags = build_server_app_data_asset()
                     built_data_assets.append(server_application_code)
+                    for tags in server_app_tags:
+                        all_data_tags.append(tags)
                 case "vulnerable-children-data":
-                    vulnerable_children_data = build_vulnerable_children_data_asset()
+                    vulnerable_children_data, vulnerable_children_data_tags = build_vulnerable_children_data_asset()
                     built_data_assets.append(vulnerable_children_data)
+                    for tags in vulnerable_children_data_tags:
+                        all_data_tags.append(tags)
                 case "job-information":
-                    job_information = build_job_information_data_asset()
+                    job_information, job_info_tags = build_job_information_data_asset()
                     built_data_assets.append(job_information)
+                    for tags in job_info_tags:
+                        all_data_tags.append(tags)
                 case "school-data":
-                    school_data = build_school_data_asset()
+                    school_data, school_data_tags = build_school_data_asset()
                     built_data_assets.append(school_data)
-                case "vulnerable-children-data":
-                    vulnerable_children_data = build_payment_details_asset()
-                    built_data_assets.append(vulnerable_children_data)
-                case "vulnerable-children-data":
-                    vulnerable_children_data = build_secrets_asset()
-                    built_data_assets.append(vulnerable_children_data)
+                    for tags in school_data_tags:
+                        all_data_tags.append(tags)
+                case "payment-details":
+                    payment_details, payment_details_tags = build_payment_details_asset()
+                    built_data_assets.append(payment_details)
+                    for tags in payment_details_tags:
+                        all_data_tags.append(tags)
+                case "secrets-and-api-keys":
+                    secrets_and_api_keys, secrets_and_api_keys_tags = build_secrets_asset()
+                    built_data_assets.append(secrets_and_api_keys)
+                    for tags in secrets_and_api_keys_tags:
+                        all_data_tags.append(tags)
     
-    return built_data_assets
+    return built_data_assets, all_data_tags
 
 
-def write_assets_to_yaml():
-    yaml_list = produce_assets()
+def produce_asset_lists() -> tuple:
+    yaml_list, all_tech_tags = produce_assets()
 
     chosen_data_assets_dicts = data_assets()
 
-    data_list = produce_data_assets(chosen_data_assets_dicts)
+    data_list, all_data_tags = produce_data_assets(chosen_data_assets_dicts)
 
-    final_yaml = template_inject(yaml_list, data_list)
-    print(final_yaml)
+    all_tags = all_tech_tags + all_data_tags
+
+    all_tags = list(dict.fromkeys(all_tags))
+
+    return yaml_list, data_list, all_tags
 
 
 if __name__ == '__main__':
-    write_assets_to_yaml()
+    
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--risks-only', help='Only produce risk tracker.', action='store_true', required=False)
+    parser.add_argument('--risks-json', nargs='?', default='output/risks.json', help='The file path for you risks json file.')
+
+    args = parser.parse_args()
+
+    if args.risks_only:
+        risks = read_risks_json(args.risks_json)
+        risks_output = template_inject_risks(risks)
+        print(risks_output)
+    else:
+        yaml_list, data_list, all_tags = produce_asset_lists()
+
+        final_yaml = template_inject(yaml_list, data_list, all_tags)
+
+        print(final_yaml)
+
+        with open("/app/threagile-pre-risks.yaml", "x") as yaml_file:
+            yaml_file.write(final_yaml)
+
+        os.system('threagile -verbose -model /app/threagile-pre-risks.yaml -output /app/work/output')
+
+        risks = read_risks_json('/app/work/output/risks.json')
+        
+        final_with_risks = template_inject(yaml_list, data_list, all_tags, risks)
+
+        with open("/app/dfe-threagile-final.yaml", "x") as yaml_file:
+            yaml_file.write(final_yaml)
+
+        os.system('threagile -verbose -model /app/dfe-threagile-final.yaml -output /app/work/output')
+
+
