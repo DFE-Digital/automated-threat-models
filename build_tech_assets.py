@@ -4,12 +4,12 @@ from jinja2 import Template
 def build_container_app_tm(name: str, asset_type: str) -> tuple:
     container_app_dict = {
         "name": name,
-        "type": asset_type.split('/')[0],
+        "type": asset_type.split("/")[0],
         "description": "A container app running a web application for the public.",
         "size": "application",
         "technology": "web-application",
         "machine": "container",
-        "tags": [name, "azure", "azure-container-app"]
+        "tags": [name, "azure", "azure-container-app"],
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
@@ -24,12 +24,12 @@ def build_container_app_tm(name: str, asset_type: str) -> tuple:
 def build_key_vault_tm(name: str, asset_type: str) -> tuple:
     key_vault_dict = {
         "name": name,
-        "type": asset_type.split('/')[0],
+        "type": asset_type.split("/")[0],
         "description": "A key vault used to hold sensitive keys, secrets, and config.",
         "size": "service",
         "technology": "vault",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-key-vault", "vault", "secrets", "keys"]
+        "tags": [name, "azure", "azure-key-vault", "vault", "secrets", "keys"],
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
@@ -44,12 +44,12 @@ def build_key_vault_tm(name: str, asset_type: str) -> tuple:
 def build_cache_tm(name: str, asset_type: str) -> tuple:
     redis_cache_dict = {
         "name": name,
-        "type": asset_type.split('/')[0],
+        "type": asset_type.split("/")[0],
         "description": "A redis cache for holding data for reliability.",
         "size": "service",
         "technology": "database",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-redis-cache", "cache"]
+        "tags": [name, "azure", "azure-redis-cache", "cache"],
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
@@ -59,6 +59,7 @@ def build_cache_tm(name: str, asset_type: str) -> tuple:
     tag_list = redis_cache_dict["tags"]
 
     return redis_cache_asset_yaml, tag_list
+
 
 def build_app_service_tm(name: str, asset_type: str, kind: str) -> tuple:
 
@@ -114,7 +115,7 @@ def build_app_service_tm(name: str, asset_type: str, kind: str) -> tuple:
         "size": "service",
         "technology": technology,
         "machine": machine,
-        "tags": [name, "azure", "azure-app-service", machine, technology]
+        "tags": [name, "azure", "azure-app-service", machine, technology],
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()
@@ -129,12 +130,12 @@ def build_app_service_tm(name: str, asset_type: str, kind: str) -> tuple:
 def build_storage_tm(name: str, asset_type: str) -> tuple:
     storage_dict = {
         "name": name,
-        "type": asset_type.split('/')[0],
+        "type": asset_type.split("/")[0],
         "description": "An Azure Storage account holding storage blobs.",
         "size": "service",
         "technology": "block-storage",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-storage", "blob"]
+        "tags": [name, "azure", "azure-storage", "blob"],
     }
     template_file = open("technical_asset_template.yaml")
     template_str = template_file.read()

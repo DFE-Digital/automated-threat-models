@@ -4,8 +4,24 @@ import os
 
 from jinja2 import Template
 
-from build_tech_assets import build_container_app_tm, build_key_vault_tm, build_cache_tm, build_app_service_tm, build_storage_tm
-from build_data_assets import build_client_app_data_asset, build_job_information_data_asset, build_payment_details_asset, build_school_data_asset, build_secrets_asset, build_server_app_data_asset, build_student_pii_data_asset, build_teacher_pii_data_asset, build_vulnerable_children_data_asset
+from build_tech_assets import (
+    build_container_app_tm,
+    build_key_vault_tm,
+    build_cache_tm,
+    build_app_service_tm,
+    build_storage_tm,
+)
+from build_data_assets import (
+    build_client_app_data_asset,
+    build_job_information_data_asset,
+    build_payment_details_asset,
+    build_school_data_asset,
+    build_secrets_asset,
+    build_server_app_data_asset,
+    build_student_pii_data_asset,
+    build_teacher_pii_data_asset,
+    build_vulnerable_children_data_asset,
+)
 from produce_risk_tracker import read_risks_json, template_inject_risks
 
 
@@ -32,9 +48,11 @@ def produce_assets() -> list:
 
         match asset_type:
             case "microsoft.app/containerapps":
-                container_app_asset_yaml, tag_list = build_container_app_tm(name, asset_type)
+                container_app_asset_yaml, tag_list = build_container_app_tm(
+                    name, asset_type
+                )
                 yaml_list.append(container_app_asset_yaml)
-                
+
                 for tag in tag_list:
                     all_tech_tags.append(tag)
 
@@ -45,7 +63,7 @@ def produce_assets() -> list:
 
                 for tag in tag_list:
                     all_tech_tags.append(tag)
-                    
+
                 print(key_vault_asset_yaml)
             case "microsoft.cache/redis":
                 redis_cache_asset_yaml, tag_list = build_cache_tm(name, asset_type)
@@ -53,16 +71,18 @@ def produce_assets() -> list:
 
                 for tag in tag_list:
                     all_tech_tags.append(tag)
-                    
+
                 print(redis_cache_asset_yaml)
             case "microsoft.web/sites":
                 kind = asset["result"]["kind"]
-                app_service_yaml, tag_list = build_app_service_tm(name, asset_type, kind)
+                app_service_yaml, tag_list = build_app_service_tm(
+                    name, asset_type, kind
+                )
                 yaml_list.append(app_service_yaml)
 
                 for tag in tag_list:
                     all_tech_tags.append(tag)
-                    
+
                 print(app_service_yaml)
             case "microsoft.storage/storageaccounts":
                 storage_yaml, tag_list = build_storage_tm(name, asset_type)
@@ -70,9 +90,8 @@ def produce_assets() -> list:
 
                 for tag in tag_list:
                     all_tech_tags.append(tag)
-                    
-                print(storage_yaml)
 
+                print(storage_yaml)
 
     return yaml_list, all_tech_tags
 
@@ -81,82 +100,115 @@ def data_assets() -> list:
     answers = ["y", "n"]
     dicts = []
 
-    teacher_pii=""
+    teacher_pii = ""
     while teacher_pii.lower() not in answers:
-        teacher_pii = input("Does your app handle teacher Personal Information? (Y/N): ") or "y"
+        teacher_pii = (
+            input("Does your app handle teacher Personal Information? (Y/N): ") or "y"
+        )
     if teacher_pii.lower() == "y":
         teacher_pii = True
     else:
         teacher_pii = False
     dicts.append(dict(name="teacher-pii", present=teacher_pii))
 
-    student_pii=""
+    student_pii = ""
     while student_pii.lower() not in answers:
-        student_pii = input("Does your app handle student Personal Information? (Y/N): ")  or "y"
+        student_pii = (
+            input("Does your app handle student Personal Information? (Y/N): ") or "y"
+        )
     if student_pii.lower() == "y":
         student_pii = True
     else:
         student_pii = False
     dicts.append(dict(name="student-pii", present=student_pii))
 
-    client_app_code=""
+    client_app_code = ""
     while client_app_code.lower() not in answers:
-        client_app_code = input("Does your app include client side code (JavaScript/HTML)? (Y/N): ") or "y"
-    
+        client_app_code = (
+            input("Does your app include client side code (JavaScript/HTML)? (Y/N): ")
+            or "y"
+        )
+
     if client_app_code.lower() == "y":
         client_app_code = True
     else:
         client_app_code = False
     dicts.append(dict(name="client-application-code", present=client_app_code))
 
-    server_app_code=""
+    server_app_code = ""
     while server_app_code.lower() not in answers:
-        server_app_code = input("Does your app include server side code (Ruby/C#/Python/Rust/etc)? (Y/N): ") or "y"
+        server_app_code = (
+            input(
+                "Does your app include server side code (Ruby/C#/Python/Rust/etc)? (Y/N): "
+            )
+            or "y"
+        )
     if server_app_code.lower() == "y":
         server_app_code = True
     else:
         server_app_code = False
     dicts.append(dict(name="server-application-code", present=server_app_code))
 
-    vulnerable_children_data=""
+    vulnerable_children_data = ""
     while vulnerable_children_data.lower() not in answers:
-        vulnerable_children_data = input("Does your app handle the data relating to vulnerable children? (Y/N): ") or "y"
+        vulnerable_children_data = (
+            input(
+                "Does your app handle the data relating to vulnerable children? (Y/N): "
+            )
+            or "y"
+        )
     if vulnerable_children_data.lower() == "y":
         vulnerable_children_data = True
     else:
         vulnerable_children_data = False
-    dicts.append(dict(name="vulnerable-children-data", present=vulnerable_children_data))
+    dicts.append(
+        dict(name="vulnerable-children-data", present=vulnerable_children_data)
+    )
 
-    job_information=""
+    job_information = ""
     while job_information.lower() not in answers:
-        job_information = input("Does your app handle information relating to jobs? (Y/N): ") or "y" 
+        job_information = (
+            input("Does your app handle information relating to jobs? (Y/N): ") or "y"
+        )
     if job_information.lower() == "y":
         job_information = True
     else:
         job_information = False
     dicts.append(dict(name="job-information", present=job_information))
 
-    school_data=""
+    school_data = ""
     while school_data.lower() not in answers:
-        school_data = input("Does your app handle data relating to schools? (Y/N): ") or "y" 
+        school_data = (
+            input("Does your app handle data relating to schools? (Y/N): ") or "y"
+        )
     if school_data.lower() == "y":
         school_data = True
     else:
         school_data = False
     dicts.append(dict(name="school-data", present=school_data))
 
-    payment_details=""
+    payment_details = ""
     while payment_details.lower() not in answers:
-        payment_details = input("Does your app handle payment information such a credit card of bank account details? (Y/N): ") or "y" 
+        payment_details = (
+            input(
+                "Does your app handle payment information such a credit card of bank account details? (Y/N): "
+            )
+            or "y"
+        )
     if payment_details.lower() == "y":
         payment_details = True
     else:
         payment_details = False
     dicts.append(dict(name="payment-details", present=payment_details))
 
-    secrets_and_keys=""
+    secrets_and_keys = ""
     while secrets_and_keys.lower() not in answers:
-        secrets_and_keys = input("Does your app utilise keys, secrets, and a vault to store them? (Y/N): ") or "y" 
+        secrets_and_keys = (
+            input(
+                "Does your app utilise keys, secrets, and a vault to store them? (Y/N): "
+            )
+            or "y"
+        )
     if secrets_and_keys.lower() == "y":
         secrets_and_keys = True
     else:
@@ -166,12 +218,16 @@ def data_assets() -> list:
     return dicts
 
 
-def template_inject(yaml_list: list, data_list: list, all_tags: list, risks: list = []) -> str:
+def template_inject(
+    yaml_list: list, data_list: list, all_tags: list, risks: list = []
+) -> str:
     template_file = open("threagile-example-model-template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
 
-    final_yaml = tech_asset_template.render(yaml_list=yaml_list, data_list=data_list, all_tags=all_tags, risks=risks)
+    final_yaml = tech_asset_template.render(
+        yaml_list=yaml_list, data_list=data_list, all_tags=all_tags, risks=risks
+    )
 
     return final_yaml
 
@@ -193,17 +249,23 @@ def produce_data_assets(chosen_data_asset_dicts: list) -> list:
                     for tags in student_pii_tags:
                         all_data_tags.append(tags)
                 case "client-application-code":
-                    client_application_code, client_app_tags = build_client_app_data_asset()
+                    client_application_code, client_app_tags = (
+                        build_client_app_data_asset()
+                    )
                     built_data_assets.append(client_application_code)
                     for tags in client_app_tags:
                         all_data_tags.append(tags)
                 case "server-application-code":
-                    server_application_code, server_app_tags = build_server_app_data_asset()
+                    server_application_code, server_app_tags = (
+                        build_server_app_data_asset()
+                    )
                     built_data_assets.append(server_application_code)
                     for tags in server_app_tags:
                         all_data_tags.append(tags)
                 case "vulnerable-children-data":
-                    vulnerable_children_data, vulnerable_children_data_tags = build_vulnerable_children_data_asset()
+                    vulnerable_children_data, vulnerable_children_data_tags = (
+                        build_vulnerable_children_data_asset()
+                    )
                     built_data_assets.append(vulnerable_children_data)
                     for tags in vulnerable_children_data_tags:
                         all_data_tags.append(tags)
@@ -218,16 +280,20 @@ def produce_data_assets(chosen_data_asset_dicts: list) -> list:
                     for tags in school_data_tags:
                         all_data_tags.append(tags)
                 case "payment-details":
-                    payment_details, payment_details_tags = build_payment_details_asset()
+                    payment_details, payment_details_tags = (
+                        build_payment_details_asset()
+                    )
                     built_data_assets.append(payment_details)
                     for tags in payment_details_tags:
                         all_data_tags.append(tags)
                 case "secrets-and-api-keys":
-                    secrets_and_api_keys, secrets_and_api_keys_tags = build_secrets_asset()
+                    secrets_and_api_keys, secrets_and_api_keys_tags = (
+                        build_secrets_asset()
+                    )
                     built_data_assets.append(secrets_and_api_keys)
                     for tags in secrets_and_api_keys_tags:
                         all_data_tags.append(tags)
-    
+
     return built_data_assets, all_data_tags
 
 
@@ -245,13 +311,22 @@ def produce_asset_lists() -> tuple:
     return yaml_list, data_list, all_tags
 
 
-if __name__ == '__main__':
-    
+if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--risks-only', help='Only produce risk tracker.', action='store_true', required=False)
-    parser.add_argument('--risks-json', nargs='?', default='output/risks.json', help='The file path for you risks json file.')
+    parser.add_argument(
+        "--risks-only",
+        help="Only produce risk tracker.",
+        action="store_true",
+        required=False,
+    )
+    parser.add_argument(
+        "--risks-json",
+        nargs="?",
+        default="output/risks.json",
+        help="The file path for you risks json file.",
+    )
 
     args = parser.parse_args()
 
@@ -269,15 +344,17 @@ if __name__ == '__main__':
         with open("/app/threagile-pre-risks.yaml", "x") as yaml_file:
             yaml_file.write(final_yaml)
 
-        os.system('threagile -verbose -model /app/threagile-pre-risks.yaml -output /app/work/output')
+        os.system(
+            "threagile -verbose -model /app/threagile-pre-risks.yaml -output /app/work/output"
+        )
 
-        risks = read_risks_json('/app/work/output/risks.json')
-        
+        risks = read_risks_json("/app/work/output/risks.json")
+
         final_with_risks = template_inject(yaml_list, data_list, all_tags, risks)
 
         with open("/app/dfe-threagile-final.yaml", "x") as yaml_file:
             yaml_file.write(final_yaml)
 
-        os.system('threagile -verbose -model /app/dfe-threagile-final.yaml -output /app/work/output')
-
-
+        os.system(
+            "threagile -verbose -model /app/dfe-threagile-final.yaml -output /app/work/output"
+        )

@@ -4,3 +4,4 @@
 venv/
 __pycache__/
 threagile-pre-risks.yaml
+*~$risks.xlsx

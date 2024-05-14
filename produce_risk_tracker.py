@@ -8,10 +8,10 @@ from jinja2 import Template
 def print_yaml(risk_dict: dict):
     print(f"  {risk_dict['name']}:")
     print(f"    status: {risk_dict['status']}")
-    print(f"    justification: ")
-    print(f"    ticket: ")
+    print("    justification: ")
+    print("    ticket: ")
     print(f"    date: \"{risk_dict['date']}\"")
-    print(f"    checked_by: ")
+    print("    checked_by: ")
 
 
 def build_risk(risk_dict: dict):
@@ -41,13 +41,13 @@ def read_risks_json(file_path: str) -> list:
             "justification": "Enter justification here.",
             "ticket": "Enter ticket number relating to your risk and mitigations here.",
             "date": date_today_fmt,
-            "checked_by": "Enter name of owner/ reviewer here."
+            "checked_by": "Enter name of owner/ reviewer here.",
         }
 
         print_yaml(risk_dict)
         risk_yaml = build_risk(risk_dict)
         risks.append(risk_yaml)
-    
+
     return risks
 
 
@@ -61,10 +61,15 @@ def template_inject_risks(risks: list) -> str:
     return final_yaml
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--file', nargs='?', default='risks.json', help='The file path for you risks json file')
+    parser.add_argument(
+        "--file",
+        nargs="?",
+        default="risks.json",
+        help="The file path for you risks json file",
+    )
 
     args = parser.parse_args()
 

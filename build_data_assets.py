@@ -6,14 +6,14 @@ def build_teacher_pii_data_asset() -> tuple:
         "name": "teacher-pii",
         "description": "Teachers personal information.",
         "usage": "business",
-        "tags_list": ["teacher-pii","database", "azure", "sensitive", "pii"],
+        "tags_list": ["teacher-pii", "database", "azure", "sensitive", "pii"],
         "origin": "customer",
         "owner": "DfE",
         "quantity": "many",
         "confidentiality": "confidential",
         "integrity": "critical",
         "availability": "operational",
-        "justification": "Teacher data might contain personally identifiable information (PII). The integrity and availability of teacher data is required for functioning of the service."
+        "justification": "Teacher data might contain personally identifiable information (PII). The integrity and availability of teacher data is required for functioning of the service.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -30,14 +30,14 @@ def build_student_pii_data_asset() -> tuple:
         "name": "student-pii",
         "description": "Students personal information.",
         "usage": "business",
-        "tags_list": ["student-pii","database", "azure", "sensitive", "pii"],
+        "tags_list": ["student-pii", "database", "azure", "sensitive", "pii"],
         "origin": "customer",
         "owner": "DfE",
         "quantity": "many",
         "confidentiality": "confidential",
         "integrity": "critical",
         "availability": "operational",
-        "justification": "Student data might contain personally identifiable information (PII). The integrity and availability of student data is required for functioning of the service."
+        "justification": "Student data might contain personally identifiable information (PII). The integrity and availability of student data is required for functioning of the service.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -54,14 +54,21 @@ def build_client_app_data_asset() -> tuple:
         "name": "client-application-code",
         "description": "Client application code such as JavaScript and HTML.",
         "usage": "devops",
-        "tags_list": ["client-application-code","github", "git", "code", "html", "javascript"],
+        "tags_list": [
+            "client-application-code",
+            "github",
+            "git",
+            "code",
+            "html",
+            "javascript",
+        ],
         "origin": "DfE",
         "owner": "DfE",
         "quantity": "very-few",
         "confidentiality": "public",
         "integrity": "critical",
         "availability": "important",
-        "justification": "The integrity of the application code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service."
+        "justification": "The integrity of the application code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -78,14 +85,14 @@ def build_server_app_data_asset() -> tuple:
         "name": "server-application-code",
         "description": "Server application code such as JavaScript and HTML.",
         "usage": "devops",
-        "tags_list": ["server-application-code","github", "git", "code", "ruby"],
+        "tags_list": ["server-application-code", "github", "git", "code", "ruby"],
         "origin": "DfE",
         "owner": "DfE",
         "quantity": "very-few",
         "confidentiality": "public",
         "integrity": "mission-critical",
         "availability": "important",
-        "justification": "The integrity of the API code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service."
+        "justification": "The integrity of the API code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -102,14 +109,20 @@ def build_vulnerable_children_data_asset() -> tuple:
         "name": "vulnerable-children-data",
         "description": "Names, addresses and sensitive details of vulnerable children.",
         "usage": "business",
-        "tags_list": ["vulnerable-children-data","database", "azure", "sensitive", "pii"],
+        "tags_list": [
+            "vulnerable-children-data",
+            "database",
+            "azure",
+            "sensitive",
+            "pii",
+        ],
         "origin": "Customer",
         "owner": "DfE",
         "quantity": "many",
         "confidentiality": "strictly-confidential",
         "integrity": "mission-critical",
         "availability": "critical",
-        "justification": "The data of vulnerable children is strictly confidential, and would cause serious harm if made public."
+        "justification": "The data of vulnerable children is strictly confidential, and would cause serious harm if made public.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -126,14 +139,14 @@ def build_job_information_data_asset() -> tuple:
         "name": "job-information",
         "description": "Names, addresses and sensitive details of vulnerable children.",
         "usage": "business",
-        "tags_list": ["job-information","database", "azure", "public"],
+        "tags_list": ["job-information", "database", "azure", "public"],
         "origin": "DfE",
         "owner": "DfE",
         "quantity": "many",
         "confidentiality": "public",
         "integrity": "important",
         "availability": "operational",
-        "justification": "Job information is important but is public information in it's nature."
+        "justification": "Job information is important but is public information in it's nature.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -150,14 +163,14 @@ def build_school_data_asset() -> tuple:
         "name": "school-data",
         "description": "School data, insights, statistics, and records.",
         "usage": "business",
-        "tags_list": ["school-data","database", "azure", "internal"],
+        "tags_list": ["school-data", "database", "azure", "internal"],
         "origin": "Schools",
         "owner": "DfE",
         "quantity": "very-many",
         "confidentiality": "internal",
         "integrity": "critical",
         "availability": "operational",
-        "justification": "School data is collected to provide useful insights in how schools are doing from a social, financial and academic point of view, but most of this information is either already public or can be made available on request."
+        "justification": "School data is collected to provide useful insights in how schools are doing from a social, financial and academic point of view, but most of this information is either already public or can be made available on request.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -168,19 +181,27 @@ def build_school_data_asset() -> tuple:
 
     return data_asset_yaml, school_data_tags
 
+
 def build_payment_details_asset() -> tuple:
     data_asset_dict = {
         "name": "payment-details",
         "description": "Payment details to receive or send money to/from users.",
         "usage": "business",
-        "tags_list": ["payment-details","database", "azure", "sensitive", "pci", "bank-account-details"],
+        "tags_list": [
+            "payment-details",
+            "database",
+            "azure",
+            "sensitive",
+            "pci",
+            "bank-account-details",
+        ],
         "origin": "Customer",
         "owner": "DfE",
         "quantity": "many",
         "confidentiality": "strictly-confidential",
         "integrity": "critical",
         "availability": "important",
-        "justification": "Payment details could be PCI or bank account details, either to take payments or to send money to/from the customer."
+        "justification": "Payment details could be PCI or bank account details, either to take payments or to send money to/from the customer.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
@@ -197,14 +218,20 @@ def build_secrets_asset() -> tuple:
         "name": "secrets-and-api-keys",
         "description": "Payment details to receive or send money to/from users.",
         "usage": "business",
-        "tags_list": ["secrets-and-api-keys","keyvault", "azure", "sensitive", "azure-key-vault"],
+        "tags_list": [
+            "secrets-and-api-keys",
+            "keyvault",
+            "azure",
+            "sensitive",
+            "azure-key-vault",
+        ],
         "origin": "DfE",
         "owner": "DfE",
         "quantity": "many",
         "confidentiality": "strictly-confidential",
         "integrity": "critical",
         "availability": "operational",
-        "justification": "Secrets and API keys are critical and would result in serious breach and reputational damage if found."
+        "justification": "Secrets and API keys are critical and would result in serious breach and reputational damage if found.",
     }
     template_file = open("data_assets_template.yaml")
     template_str = template_file.read()
