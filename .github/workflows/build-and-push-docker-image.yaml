@@ -8,7 +8,7 @@ on:
       - 'Dockerfile'
       - '.github/workflows/build-and-push-docker-image.yaml'
       - '*.py'
-      - '*template.yaml'
+      - 'yaml-templates/*'
   schedule:
     - cron: '0 8 * * *'
   workflow_call:
