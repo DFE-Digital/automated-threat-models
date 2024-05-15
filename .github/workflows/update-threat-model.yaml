@@ -6,9 +6,11 @@ permissions:
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - 'main'
+      - 'test-new-action'
     paths:
-      - 'threagile-SSPHP-model.yaml'
+      - 'example-models/threagile-SSPHP-model.yaml'
       - '.github/workflows/update-threat-model.yaml'
   workflow_dispatch:
 jobs:
@@ -21,17 +23,23 @@ jobs:
         
         - name: Run threagile
           id: threagile-test-optional-args
-          uses: pritchyspritch/run-threagile-action@v2
+          uses: pritchyspritch/run-threagile-action@dfe-threagile
           with:
             optional-args: '--help'
 
         - name: Run threagile
           id: threagile
-          uses: pritchyspritch/run-threagile-action@v2
+          uses: pritchyspritch/run-threagile-action@dfe-threagile
           with:
-            model-file: 'threagile-SSPHP-model.yaml'
+            model-file: 'example-models/threagile-SSPHP-model.yaml'
             output-dir: 'test/location'
 
+        # will fail as Azure data ingestion hasn't been automated yet
+        - name: Run threagile
+          id: dfe-threagile
+          uses: pritchyspritch/run-threagile-action@dfe-threagile
+          with:
+            dfe_threagile: 'true'
         
         - name: Upload Artifacts
           uses: actions/upload-artifact@v4
