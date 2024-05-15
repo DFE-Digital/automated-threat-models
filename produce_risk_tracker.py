@@ -2,17 +2,28 @@ import json
 import datetime
 import argparse
 
+from jinja2 import Template
 
-def print_yaml(risk_dict):
+
+def print_yaml(risk_dict: dict):
     print(f"  {risk_dict['name']}:")
     print(f"    status: {risk_dict['status']}")
-    print(f"    justification: ")
-    print(f"    ticket: ")
+    print("    justification: ")
+    print("    ticket: ")
     print(f"    date: \"{risk_dict['date']}\"")
-    print(f"    checked_by: ")
+    print("    checked_by: ")
 
 
-def read_risks_json(file_path):
+def build_risk(risk_dict: dict):
+    template_file = open("yaml-templates/risks_template.yaml")
+    template_str = template_file.read()
+    risk_template = Template(template_str)
+    risk_yaml = risk_template.render(risk_dict)
+
+    return risk_yaml
+
+
+def read_risks_json(file_path: str) -> list:
     file = open(file_path)
     data = json.load(file)
 
@@ -21,21 +32,49 @@ def read_risks_json(file_path):
 
     print("risk_tracking:")
 
+    risks = []
+
     for risk in data:
         risk_dict = {
             "name": risk["synthetic_id"],
             "status": risk["risk_status"],
+            "justification": "Enter justification here.",
+            "ticket": "Enter ticket number relating to your risk and mitigations here.",
             "date": date_today_fmt,
+            "checked_by": "Enter name of owner/ reviewer here.",
         }
 
         print_yaml(risk_dict)
+        risk_yaml = build_risk(risk_dict)
+        risks.append(risk_yaml)
+
+    return risks
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Process some integers.')
+def template_inject_risks(risks: list) -> str:
+    # change to the output from asset builder
+    template_file = open("yaml-templates/threagile-pre-risks.yaml")
+    template_str = template_file.read()
+    risks_template = Template(template_str)
+    final_yaml = risks_template.render(risks=risks)
+    print(final_yaml)
+    return final_yaml
 
-    parser.add_argument('--file', nargs='?', default='risks.json', help='The file path for you risks json file')
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--file",
+        nargs="?",
+        default="risks.json",
+        help="The file path for you risks json file",
+    )
 
     args = parser.parse_args()
 
-    read_risks_json(args.file)
+    risks = read_risks_json(args.file)
+
+    risks_output = template_inject_risks(risks)
+
+    print(risks_output)

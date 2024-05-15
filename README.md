@@ -24,14 +24,34 @@ This method:
 
 ## Getting started with an initial threat model YAML
 
-### Pre-requisites
+### Pre-requisites (local)
 
-Before getting started, you will need to install:
+Before getting started, you will need to:
 
-* docker
-* python (optional - but will help in producing the mitigation plan risk tracker after your initial threat model has been created)
+* install docker
+* [pull the container image from GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) by:
+    * creating a personal access token with `read:packages` permission scoped to the DfE-Digital org
+    * setting your PAT token as an enviornment variable: `export CR_PAT=YOUR_TOKEN`
+    * logging in with docker: `echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin`
+    * pulling the image: `docker pull ghcr.io dfe-digital/automated-threat-models`
+* data from Splunk regarding your Azure resources including: name, kind, type (s1XXX-functionX, functionapp, microsoft.web/sites) **note that this is to be automated in the next iteration**
 
-### Create a stub model and example model
+### Automated threat models (DfE)
+
+This project's main purpose is to enable DfE to run continuous automated threat models, which data can be ingested by the continuous assurance platform.
+
+The automated threat models will be kept in the [continuous assurance private repo](https://github.com/DFE-Digital/service-security-posture-hardening-private), which will query this project.
+
+The automation is based on dfe-threagile being able to read data regarding Azure resources in Splunk.
+
+Basic usage: 
+
+##### Run DfE automation
+```shell
+$ docker run --rm -it -v "$(pwd)":/app/work --entrypoint python dfe-digital/automated-threat-models dfe_threagile.py
+```
+
+### Create a stub model and example model (manual)
 
 It's advisable to create a stub and example model from threagile to give you a framework YAML file to work with and a thorough example with hints you can copy.
 

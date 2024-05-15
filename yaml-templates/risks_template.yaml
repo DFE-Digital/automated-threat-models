@@ -1,0 +1,6 @@
+  {{name}}: # wildcards "*" between the @ characters are possible
+    status: {{status}} # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: {{justification}}
+    ticket: {{ticket}}
+    date: {{date}}
+    checked_by: {{checked_by}}

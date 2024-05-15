@@ -1,0 +1,274 @@
+threagile_version: 1.0.0
+
+# NOTE:
+#
+# For a perfect editing experience within your IDE of choice you can easily
+# get model syntax validation and autocompletion (very handy for enum values)
+# as well as live templates: Just import the schema.json into your IDE and assign
+# it as "schema" to each Threagile YAML file. Also try to import individual parts
+# from the live-templates.txt file into your IDE as live editing templates.
+#
+# You might also want to try the REST API when running in server mode...
+
+
+
+title: Some Example Application
+
+date: 2020-07-01
+
+author:
+  name: John Doe
+  homepage: www.example.com
+
+
+
+
+management_summary_comment: >
+  Just some <b>more</b> custom summary possible here...
+
+business_criticality: important # values: archive, operational, important, critical, mission-critical
+
+
+
+
+business_overview:
+  description: Some more <i>demo text</i> here and even images...
+  images:
+#    - custom-image-1.png: Some dummy image 1
+#    - custom-image-2.png: Some dummy image 2
+
+
+technical_overview:
+  description: Some more <i>demo text</i> here and even images...
+  images:
+#    - custom-image-1.png: Some dummy image 1
+#    - custom-image-2.png: Some dummy image 2
+
+
+
+questions: # simply use "" as answer to signal "unanswered"
+  How are the admin clients managed/protected against compromise?: ""
+  How are the development clients managed/protected against compromise?: >
+    Managed by XYZ
+  How are the build pipeline components managed/protected against compromise?: >
+    Managed by XYZ
+
+
+
+abuse_cases:
+  Denial-of-Service: >
+    As a hacker I want to disturb the functionality of the backend system in order to cause indirect
+    financial damage via unusable features.
+  CPU-Cycle Theft: >
+    As a hacker I want to steal CPU cycles in order to transform them into money via installed crypto currency miners.
+  Ransomware: >
+    As a hacker I want to encrypt the storage and file systems in order to demand ransom.
+  Identity Theft: >
+    As a hacker I want to steal identity data in order to reuse credentials and/or keys on other targets of the same company or outside.
+  PII Theft: >
+    As a hacker I want to steal PII (Personally Identifiable Information) data in order to blackmail the company and/or damage
+    their repudiation by publishing them.
+
+  ERP-System Compromise: >
+    As a hacker I want to access the ERP-System in order to steal/modify sensitive business data.
+  Database Compromise: >
+    As a hacker I want to access the database backend of the ERP-System in order to steal/modify sensitive
+    business data.
+  Contract Filesystem Compromise: >
+    As a hacker I want to access the filesystem storing the contract PDFs in order to steal/modify contract data.
+  Cross-Site Scripting Attacks: >
+    As a hacker I want to execute Cross-Site Scripting (XSS) and similar attacks in order to takeover victim sessions and
+    cause reputational damage.
+  Denial-of-Service of Enduser Functionality: >
+    As a hacker I want to disturb the functionality of the enduser parts of the application in order to cause direct financial
+    damage (lower sales).
+  Denial-of-Service of ERP/DB Functionality: >
+    As a hacker I want to disturb the functionality of the ERP system and/or it's database in order to cause indirect
+    financial damage via unusable internal ERP features (not related to customer portal).
+
+
+security_requirements:
+  Input Validation: Strict input validation is required to reduce the overall attack surface.
+  Securing Administrative Access: Administrative access must be secured with strong encryption and multi-factor authentication.
+  EU-DSGVO: Mandatory EU-Datenschutzgrundverordnung
+
+
+# Tags can be used for anything, it's just a tag. Also risk rules can act based on tags if you like.
+# Tags can be used for example to name the products used (which is more concrete than the technology types that only specify the type)
+tags_available:
+{%- for tag in all_tags %}
+  - {{ tag }}
+{%- endfor %}
+
+
+data_assets:
+{% for data in data_list %}
+{{ data }}
+{% endfor %}
+
+
+technical_assets:
+{% for yaml in yaml_list %}
+{{ yaml }}
+{% endfor %}
+
+
+trust_boundaries:
+
+
+#   Web DMZ:
+#     id: web-dmz
+#     description: Web DMZ
+#     type: network-cloud-security-group # values: see help
+#     tags:
+#     technical_assets_inside: # sequence of IDs to reference
+#       - apache-webserver
+#       - marketing-cms
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+#   ERP DMZ:
+#     id: erp-dmz
+#     description: ERP DMZ
+#     type: network-cloud-security-group # values: see help
+#     tags:
+#       - some-erp
+#     technical_assets_inside: # sequence of IDs to reference
+#       - erp-system
+#       - contract-fileserver
+#       - sql-database
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+#   Application Network:
+#     id: application-network
+#     description: Application Network
+#     type: network-cloud-provider # values: see help
+#     tags:
+#       - aws
+#     technical_assets_inside: # sequence of IDs to reference
+#       - load-balancer
+#     trust_boundaries_nested: # sequence of IDs to reference
+#       - web-dmz
+#       - erp-dmz
+#       - auth-env
+
+
+#   Auth Handling Environment:
+#     id: auth-env
+#     description: Auth Handling Environment
+#     type: execution-environment # values: see help
+#     tags:
+#     technical_assets_inside: # sequence of IDs to reference
+#       - identity-provider
+#       - ldap-auth-server
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+#   Dev Network:
+#     id: dev-network
+#     description: Development Network
+#     type: network-on-prem # values: see help
+#     tags:
+#     technical_assets_inside: # sequence of IDs to reference
+#       - jenkins-buildserver
+#       - git-repo
+#       - backend-admin-client
+#       - backoffice-client
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+
+
+
+# shared_runtimes:
+
+
+#   WebApp and Backoffice Virtualization:
+#     id: webapp-virtualization
+#     description: WebApp Virtualization
+#     tags:
+#       - vmware
+#     technical_assets_running: # sequence of IDs to reference
+#       - apache-webserver
+#       - marketing-cms
+#       - erp-system
+#       - contract-fileserver
+#       - sql-database
+
+
+
+
+individual_risk_categories: # used for adding custom manually identified risks
+
+
+  # Some Individual Risk Example:
+  #   id: something-strange
+  #   description: Some text describing the risk category...
+  #   impact: Some text describing the impact...
+  #   asvs: V0 - Something Strange
+  #   cheat_sheet: https://example.com
+  #   action: Some text describing the action...
+  #   mitigation: Some text describing the mitigation...
+  #   check: Check if XYZ...
+  #   function: business-side # values: business-side, architecture, development, operations
+  #   stride: repudiation # values: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+  #   detection_logic: Some text describing the detection logic...
+  #   risk_assessment: Some text describing the risk assessment...
+  #   false_positives: Some text describing the most common types of false positives...
+  #   model_failure_possible_reason: false
+  #   cwe: 693
+  #   risks_identified:
+  #     <b>Example Individual Risk</b> at <b>Database</b>:
+  #       severity: critical # values: low, medium, elevated, high, critical
+  #       exploitation_likelihood: likely # values: unlikely, likely, very-likely, frequent
+  #       exploitation_impact: medium # values: low, medium, high, very-high
+  #       data_breach_probability: probable # values: improbable, possible, probable
+  #       data_breach_technical_assets: # list of technical asset IDs which might have data breach
+  #         - sql-database
+  #       most_relevant_data_asset:
+  #       most_relevant_technical_asset: sql-database
+  #       most_relevant_communication_link:
+  #       most_relevant_trust_boundary:
+  #       most_relevant_shared_runtime:
+  #     <b>Example Individual Risk</b> at <b>Contract Filesystem</b>:
+  #       severity: medium # values: low, medium, elevated, high, critical
+  #       exploitation_likelihood: frequent # values: unlikely, likely, very-likely, frequent
+  #       exploitation_impact: very-high # values: low, medium, high, very-high
+  #       data_breach_probability: improbable # values: improbable, possible, probable
+  #       data_breach_technical_assets: # list of technical asset IDs which might have data breach
+  #       most_relevant_data_asset:
+  #       most_relevant_technical_asset: contract-fileserver
+  #       most_relevant_communication_link:
+  #       most_relevant_trust_boundary:
+  #       most_relevant_shared_runtime:
+
+
+
+# NOTE:
+# For risk tracking each risk-id needs to be defined (the string with the @ sign in it). These unique risk IDs
+# are visible in the PDF report (the small grey string under each risk), the Excel (column "ID"), as well as the JSON responses.
+# Some risk IDs have only one @ sign in them, while others multiple. The idea is to allow for unique but still speaking IDs.
+# Therefore each risk instance creates its individual ID by taking all affected elements causing the risk to be within an @-delimited part.
+# Using wildcards (the * sign) for parts delimited by @ signs allows to handle groups of certain risks at once. Best is to lookup the IDs
+# to use in the created Excel file. Alternatively a model macro "seed-risk-tracking" is available that helps in initially
+# seeding the risk tracking part here based on already identified and not yet handled risks.
+
+risk_tracking:
+{% for risk in risks %}
+{{ risk }}
+{% endfor %}
+
+
+#diagram_tweak_edge_layout: spline # values: spline, polyline, false, ortho (this suppresses edge labels), curved (this suppresses edge labels and can cause problems with edges)
+
+#diagram_tweak_suppress_edge_labels: true
+#diagram_tweak_layout_left_to_right: true
+#diagram_tweak_nodesep: 2
+#diagram_tweak_ranksep: 2
+#diagram_tweak_invisible_connections_between_assets:
+#  - tech-asset-source-id-A:tech-asset-target-id-B
+#  - tech-asset-source-id-C:tech-asset-target-id-D
+#diagram_tweak_same_rank_assets:
+#  - tech-asset-source-id-E:tech-asset-target-id-F:tech-asset-source-id-G:tech-asset-target-id-H
+#  - tech-asset-source-id-M:tech-asset-target-id-N:tech-asset-source-id-O

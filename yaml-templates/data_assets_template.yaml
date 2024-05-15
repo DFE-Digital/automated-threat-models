@@ -1,0 +1,17 @@
+  {{name}}:
+    name: {{name}}
+    id: {{name}}
+    description: {{description}}
+    usage: {{usage}} # values: business, devops
+    tags: 
+      {%- for tag in tags_list %}
+      - {{ tag }}
+      {%- endfor %}
+    origin: {{origin}}
+    owner: {{owner}}
+    quantity: {{quantity}} # values: very-few, few, many, very-many
+    confidentiality: {{confidentiality}} # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: {{integrity}} # values: archive, operational, important, critical, mission-critical
+    availability: {{availability}} # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      {{justification}}
