@@ -14,6 +14,7 @@ on:
   workflow_call:
 
 jobs:
+  
   build-and-push-image:
     runs-on: ubuntu-latest
 
@@ -45,3 +46,41 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  test-action:
+    runs-on: ubuntu-latest
+    needs: build-and-push-image
+
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+    
+      - name: Run threagile
+        id: threagile-test-optional-args
+        uses: pritchyspritch/run-threagile-action@v2
+        with:
+          optional_args: '--help'
+
+      - name: Run threagile
+        id: threagile
+        uses: pritchyspritch/run-threagile-action@v2
+        with:
+          model_file: 'example-models/threagile-SSPHP-model.yaml'
+          output_dir: 'test/location'
+
+      # will fail as Azure data ingestion hasn't been automated yet
+      - name: Run threagile
+        id: dfe-threagile
+        uses: pritchyspritch/run-threagile-action@v2
+        with:
+          dfe_threagile: 'true'
+      
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: threat-model-output
+          path: test/location
