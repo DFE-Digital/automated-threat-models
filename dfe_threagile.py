@@ -1,6 +1,7 @@
 import json
 import argparse
 import os
+import sys
 
 from jinja2 import Template
 
@@ -27,8 +28,12 @@ from produce_risk_tracker import read_risks_json, template_inject_risks
 
 def temp_file_read() -> list:
     data_list = []
-    # temp
-    file = open("/app/work/test-data.json", "r")
+    # temp: I want to prove we can run threagile in multiple ways in GitHub Actions before the feature is built
+    try:
+        file = open("/app/work/test-data.json", "r")
+    except FileNotFoundError as e:
+        print("test-data.json file not found, this file is for testing purposes - automated Azure resource collection feature not yet implemented.")
+        sys.exit(0)
     lines = file.readlines()
 
     for line in lines:
