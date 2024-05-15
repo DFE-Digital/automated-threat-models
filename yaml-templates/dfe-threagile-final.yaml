@@ -1,0 +1,1168 @@
+threagile_version: 1.0.0
+
+# NOTE:
+#
+# For a perfect editing experience within your IDE of choice you can easily
+# get model syntax validation and autocompletion (very handy for enum values)
+# as well as live templates: Just import the schema.json into your IDE and assign
+# it as "schema" to each Threagile YAML file. Also try to import individual parts
+# from the live-templates.txt file into your IDE as live editing templates.
+#
+# You might also want to try the REST API when running in server mode...
+
+
+
+title: Some Example Application
+
+date: 2020-07-01
+
+author:
+  name: John Doe
+  homepage: www.example.com
+
+
+
+
+management_summary_comment: >
+  Just some <b>more</b> custom summary possible here...
+
+business_criticality: important # values: archive, operational, important, critical, mission-critical
+
+
+
+
+business_overview:
+  description: Some more <i>demo text</i> here and even images...
+  images:
+#    - custom-image-1.png: Some dummy image 1
+#    - custom-image-2.png: Some dummy image 2
+
+
+technical_overview:
+  description: Some more <i>demo text</i> here and even images...
+  images:
+#    - custom-image-1.png: Some dummy image 1
+#    - custom-image-2.png: Some dummy image 2
+
+
+
+questions: # simply use "" as answer to signal "unanswered"
+  How are the admin clients managed/protected against compromise?: ""
+  How are the development clients managed/protected against compromise?: >
+    Managed by XYZ
+  How are the build pipeline components managed/protected against compromise?: >
+    Managed by XYZ
+
+
+
+abuse_cases:
+  Denial-of-Service: >
+    As a hacker I want to disturb the functionality of the backend system in order to cause indirect
+    financial damage via unusable features.
+  CPU-Cycle Theft: >
+    As a hacker I want to steal CPU cycles in order to transform them into money via installed crypto currency miners.
+  Ransomware: >
+    As a hacker I want to encrypt the storage and file systems in order to demand ransom.
+  Identity Theft: >
+    As a hacker I want to steal identity data in order to reuse credentials and/or keys on other targets of the same company or outside.
+  PII Theft: >
+    As a hacker I want to steal PII (Personally Identifiable Information) data in order to blackmail the company and/or damage
+    their repudiation by publishing them.
+
+  ERP-System Compromise: >
+    As a hacker I want to access the ERP-System in order to steal/modify sensitive business data.
+  Database Compromise: >
+    As a hacker I want to access the database backend of the ERP-System in order to steal/modify sensitive
+    business data.
+  Contract Filesystem Compromise: >
+    As a hacker I want to access the filesystem storing the contract PDFs in order to steal/modify contract data.
+  Cross-Site Scripting Attacks: >
+    As a hacker I want to execute Cross-Site Scripting (XSS) and similar attacks in order to takeover victim sessions and
+    cause reputational damage.
+  Denial-of-Service of Enduser Functionality: >
+    As a hacker I want to disturb the functionality of the enduser parts of the application in order to cause direct financial
+    damage (lower sales).
+  Denial-of-Service of ERP/DB Functionality: >
+    As a hacker I want to disturb the functionality of the ERP system and/or it's database in order to cause indirect
+    financial damage via unusable internal ERP features (not related to customer portal).
+
+
+security_requirements:
+  Input Validation: Strict input validation is required to reduce the overall attack surface.
+  Securing Administrative Access: Administrative access must be secured with strong encryption and multi-factor authentication.
+  EU-DSGVO: Mandatory EU-Datenschutzgrundverordnung
+
+
+# Tags can be used for anything, it's just a tag. Also risk rules can act based on tags if you like.
+# Tags can be used for example to name the products used (which is more concrete than the technology types that only specify the type)
+tags_available:
+  - s184d01-comp-tfvars
+  - azure
+  - azure-key-vault
+  - vault
+  - secrets
+  - keys
+  - s184d01-comp-complete-app-worker
+  - azure-container-app
+  - s184d01-compdefault
+  - azure-redis-cache
+  - cache
+  - s184d01-comp-complete-app
+  - tfstatep3sha
+  - azure-storage
+  - blob
+  - tfstatel95cd
+  - ssphp-metrics-rust-p3sha
+  - azure-app-service
+  - serverless
+  - function
+  - ssphp-metrics
+  - teacher-pii
+  - database
+  - sensitive
+  - pii
+  - student-pii
+  - client-application-code
+  - github
+  - git
+  - code
+  - html
+  - javascript
+  - server-application-code
+  - ruby
+  - vulnerable-children-data
+  - job-information
+  - public
+  - school-data
+  - internal
+  - payment-details
+  - pci
+  - bank-account-details
+  - secrets-and-api-keys
+  - keyvault
+
+
+data_assets:
+
+  teacher-pii:
+    name: teacher-pii
+    id: teacher-pii
+    description: Teachers personal information.
+    usage: business # values: business, devops
+    tags:
+      - teacher-pii
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Teacher data might contain personally identifiable information (PII). The integrity and availability of teacher data is required for functioning of the service.
+
+  student-pii:
+    name: student-pii
+    id: student-pii
+    description: Students personal information.
+    usage: business # values: business, devops
+    tags:
+      - student-pii
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Student data might contain personally identifiable information (PII). The integrity and availability of student data is required for functioning of the service.
+
+  client-application-code:
+    name: client-application-code
+    id: client-application-code
+    description: Client application code such as JavaScript and HTML.
+    usage: devops # values: business, devops
+    tags:
+      - client-application-code
+      - github
+      - git
+      - code
+      - html
+      - javascript
+    origin: DfE
+    owner: DfE
+    quantity: very-few # values: very-few, few, many, very-many
+    confidentiality: public # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: important # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      The integrity of the application code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service.
+
+  server-application-code:
+    name: server-application-code
+    id: server-application-code
+    description: Server application code such as JavaScript and HTML.
+    usage: devops # values: business, devops
+    tags:
+      - server-application-code
+      - github
+      - git
+      - code
+      - ruby
+    origin: DfE
+    owner: DfE
+    quantity: very-few # values: very-few, few, many, very-many
+    confidentiality: public # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: mission-critical # values: archive, operational, important, critical, mission-critical
+    availability: important # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      The integrity of the API code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service.
+
+  vulnerable-children-data:
+    name: vulnerable-children-data
+    id: vulnerable-children-data
+    description: Names, addresses and sensitive details of vulnerable children.
+    usage: business # values: business, devops
+    tags:
+      - vulnerable-children-data
+      - database
+      - azure
+      - sensitive
+      - pii
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: mission-critical # values: archive, operational, important, critical, mission-critical
+    availability: critical # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      The data of vulnerable children is strictly confidential, and would cause serious harm if made public.
+
+  job-information:
+    name: job-information
+    id: job-information
+    description: Names, addresses and sensitive details of vulnerable children.
+    usage: business # values: business, devops
+    tags:
+      - job-information
+      - database
+      - azure
+      - public
+    origin: DfE
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: public # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: important # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Job information is important but is public information in it's nature.
+
+  school-data:
+    name: school-data
+    id: school-data
+    description: School data, insights, statistics, and records.
+    usage: business # values: business, devops
+    tags:
+      - school-data
+      - database
+      - azure
+      - internal
+    origin: Schools
+    owner: DfE
+    quantity: very-many # values: very-few, few, many, very-many
+    confidentiality: internal # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      School data is collected to provide useful insights in how schools are doing from a social, financial and academic point of view, but most of this information is either already public or can be made available on request.
+
+  payment-details:
+    name: payment-details
+    id: payment-details
+    description: Payment details to receive or send money to/from users.
+    usage: business # values: business, devops
+    tags:
+      - payment-details
+      - database
+      - azure
+      - sensitive
+      - pci
+      - bank-account-details
+    origin: Customer
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: important # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Payment details could be PCI or bank account details, either to take payments or to send money to/from the customer.
+
+  secrets-and-api-keys:
+    name: secrets-and-api-keys
+    id: secrets-and-api-keys
+    description: Payment details to receive or send money to/from users.
+    usage: business # values: business, devops
+    tags:
+      - secrets-and-api-keys
+      - keyvault
+      - azure
+      - sensitive
+      - azure-key-vault
+    origin: DfE
+    owner: DfE
+    quantity: many # values: very-few, few, many, very-many
+    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
+    integrity: critical # values: archive, operational, important, critical, mission-critical
+    availability: operational # values: archive, operational, important, critical, mission-critical
+    justification_cia_rating: >
+      Secrets and API keys are critical and would result in serious breach and reputational damage if found.
+
+
+
+technical_assets:
+
+  s184d01-comp-tfvars:
+    id: s184d01-comp-tfvars
+    description: A key vault used to hold sensitive keys, secrets, and config.
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: service
+    technology: vault
+    tags:
+        - s184d01-comp-tfvars
+        - azure
+        - azure-key-vault
+        - vault
+        - secrets
+        - keys
+    internet: true
+    machine: virtual
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+  s184d01-comp-complete-app-worker:
+    id: s184d01-comp-complete-app-worker
+    description: A container app running a web application for the public.
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: application
+    technology: web-application
+    tags:
+        - s184d01-comp-complete-app-worker
+        - azure
+        - azure-container-app
+    internet: true
+    machine: container
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+  s184d01-compdefault:
+    id: s184d01-compdefault
+    description: A redis cache for holding data for reliability.
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: service
+    technology: database
+    tags:
+        - s184d01-compdefault
+        - azure
+        - azure-redis-cache
+        - cache
+    internet: true
+    machine: virtual
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+  s184d01-comp-complete-app:
+    id: s184d01-comp-complete-app
+    description: A container app running a web application for the public.
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: application
+    technology: web-application
+    tags:
+        - s184d01-comp-complete-app
+        - azure
+        - azure-container-app
+    internet: true
+    machine: container
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+  tfstatep3sha:
+    id: tfstatep3sha
+    description: An Azure Storage account holding storage blobs.
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: service
+    technology: block-storage
+    tags:
+        - tfstatep3sha
+        - azure
+        - azure-storage
+        - blob
+    internet: true
+    machine: virtual
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+  tfstatel95cd:
+    id: tfstatel95cd
+    description: An Azure Storage account holding storage blobs.
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: service
+    technology: block-storage
+    tags:
+        - tfstatel95cd
+        - azure
+        - azure-storage
+        - blob
+    internet: true
+    machine: virtual
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+  ssphp-metrics-rust-p3sha:
+    id: ssphp-metrics-rust-p3sha
+    description: An app service plan, used to deploy a Linux Consumption Function App
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: service
+    technology: function
+    tags:
+        - ssphp-metrics-rust-p3sha
+        - azure
+        - azure-app-service
+        - serverless
+        - function
+    internet: true
+    machine: serverless
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+  ssphp-metrics:
+    id: ssphp-metrics
+    description: A key vault used to hold sensitive keys, secrets, and config.
+    type: external-entity
+    usage: business
+    used_as_client_by_human: false
+    out_of_scope: false
+    justification_out_of_scope: 
+    size: service
+    technology: vault
+    tags:
+        - ssphp-metrics
+        - azure
+        - azure-key-vault
+        - vault
+        - secrets
+        - keys
+    internet: true
+    machine: virtual
+    encryption: none
+    owner: dfe
+    confidentiality: confidential
+    integrity: critical
+    availability: important
+    justification_cia_rating: Placeholder
+    multi_tenant: false
+    redundant: false
+    custom_developed_parts: false
+    data_assets_processed: # TODO: loop through obvious types for each with best guess
+    data_assets_stored:
+    data_formats_accepted:
+    diagram_tweak_order: 0
+    communication_links:
+        # API Calls to Services:
+        #     target: various-service-rest-endpoints
+        #     description: The function makes multiple API calls to Azure, AWS, O365 and GitHub.
+        #     protocol: https
+        #     authentication: token
+        #     authorization: technical-user
+        #     tags: 
+        #         - azure
+        #         - o365
+        #         - github
+        #     vpn: false
+        #     ip_filtered: false
+        #     readonly: true
+        #     usage: business
+        #     data_assets_sent:
+        #         - secrets-and-api-keys
+        #         - sourcecode
+        #     data_assets_received:
+        #         - splunk-data
+        #     diagram_tweak_weight: 0
+        #     diagram_tweak_constraint: false
+
+
+
+trust_boundaries:
+
+
+#   Web DMZ:
+#     id: web-dmz
+#     description: Web DMZ
+#     type: network-cloud-security-group # values: see help
+#     tags:
+#     technical_assets_inside: # sequence of IDs to reference
+#       - apache-webserver
+#       - marketing-cms
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+#   ERP DMZ:
+#     id: erp-dmz
+#     description: ERP DMZ
+#     type: network-cloud-security-group # values: see help
+#     tags:
+#       - some-erp
+#     technical_assets_inside: # sequence of IDs to reference
+#       - erp-system
+#       - contract-fileserver
+#       - sql-database
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+#   Application Network:
+#     id: application-network
+#     description: Application Network
+#     type: network-cloud-provider # values: see help
+#     tags:
+#       - aws
+#     technical_assets_inside: # sequence of IDs to reference
+#       - load-balancer
+#     trust_boundaries_nested: # sequence of IDs to reference
+#       - web-dmz
+#       - erp-dmz
+#       - auth-env
+
+
+#   Auth Handling Environment:
+#     id: auth-env
+#     description: Auth Handling Environment
+#     type: execution-environment # values: see help
+#     tags:
+#     technical_assets_inside: # sequence of IDs to reference
+#       - identity-provider
+#       - ldap-auth-server
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+#   Dev Network:
+#     id: dev-network
+#     description: Development Network
+#     type: network-on-prem # values: see help
+#     tags:
+#     technical_assets_inside: # sequence of IDs to reference
+#       - jenkins-buildserver
+#       - git-repo
+#       - backend-admin-client
+#       - backoffice-client
+#     trust_boundaries_nested: # sequence of IDs to reference
+
+
+
+
+
+# shared_runtimes:
+
+
+#   WebApp and Backoffice Virtualization:
+#     id: webapp-virtualization
+#     description: WebApp Virtualization
+#     tags:
+#       - vmware
+#     technical_assets_running: # sequence of IDs to reference
+#       - apache-webserver
+#       - marketing-cms
+#       - erp-system
+#       - contract-fileserver
+#       - sql-database
+
+
+
+
+individual_risk_categories: # used for adding custom manually identified risks
+
+
+  # Some Individual Risk Example:
+  #   id: something-strange
+  #   description: Some text describing the risk category...
+  #   impact: Some text describing the impact...
+  #   asvs: V0 - Something Strange
+  #   cheat_sheet: https://example.com
+  #   action: Some text describing the action...
+  #   mitigation: Some text describing the mitigation...
+  #   check: Check if XYZ...
+  #   function: business-side # values: business-side, architecture, development, operations
+  #   stride: repudiation # values: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+  #   detection_logic: Some text describing the detection logic...
+  #   risk_assessment: Some text describing the risk assessment...
+  #   false_positives: Some text describing the most common types of false positives...
+  #   model_failure_possible_reason: false
+  #   cwe: 693
+  #   risks_identified:
+  #     <b>Example Individual Risk</b> at <b>Database</b>:
+  #       severity: critical # values: low, medium, elevated, high, critical
+  #       exploitation_likelihood: likely # values: unlikely, likely, very-likely, frequent
+  #       exploitation_impact: medium # values: low, medium, high, very-high
+  #       data_breach_probability: probable # values: improbable, possible, probable
+  #       data_breach_technical_assets: # list of technical asset IDs which might have data breach
+  #         - sql-database
+  #       most_relevant_data_asset:
+  #       most_relevant_technical_asset: sql-database
+  #       most_relevant_communication_link:
+  #       most_relevant_trust_boundary:
+  #       most_relevant_shared_runtime:
+  #     <b>Example Individual Risk</b> at <b>Contract Filesystem</b>:
+  #       severity: medium # values: low, medium, elevated, high, critical
+  #       exploitation_likelihood: frequent # values: unlikely, likely, very-likely, frequent
+  #       exploitation_impact: very-high # values: low, medium, high, very-high
+  #       data_breach_probability: improbable # values: improbable, possible, probable
+  #       data_breach_technical_assets: # list of technical asset IDs which might have data breach
+  #       most_relevant_data_asset:
+  #       most_relevant_technical_asset: contract-fileserver
+  #       most_relevant_communication_link:
+  #       most_relevant_trust_boundary:
+  #       most_relevant_shared_runtime:
+
+
+
+# NOTE:
+# For risk tracking each risk-id needs to be defined (the string with the @ sign in it). These unique risk IDs
+# are visible in the PDF report (the small grey string under each risk), the Excel (column "ID"), as well as the JSON responses.
+# Some risk IDs have only one @ sign in them, while others multiple. The idea is to allow for unique but still speaking IDs.
+# Therefore each risk instance creates its individual ID by taking all affected elements causing the risk to be within an @-delimited part.
+# Using wildcards (the * sign) for parts delimited by @ signs allows to handle groups of certain risks at once. Best is to lookup the IDs
+# to use in the created Excel file. Alternatively a model macro "seed-risk-tracking" is available that helps in initially
+# seeding the risk tracking part here based on already identified and not yet handled risks.
+
+risk_tracking:
+
+  unencrypted-asset@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unencrypted-asset@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unencrypted-asset@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unencrypted-asset@s184d01-compdefault: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unencrypted-asset@ssphp-metrics-rust-p3sha: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unencrypted-asset@ssphp-metrics: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unencrypted-asset@tfstatel95cd: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unencrypted-asset@tfstatep3sha: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@s184d01-compdefault: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@ssphp-metrics-rust-p3sha: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@ssphp-metrics: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@tfstatel95cd: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-technical-asset@tfstatep3sha: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  cross-site-scripting@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  cross-site-scripting@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  missing-cloud-hardening@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  container-baseimage-backdooring@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  container-baseimage-backdooring@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  missing-vault-isolation@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  missing-vault-isolation@ssphp-metrics: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  missing-network-segmentation@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  missing-network-segmentation@ssphp-metrics: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@client-application-code: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@job-information: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@payment-details: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@school-data: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@secrets-and-api-keys: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@server-application-code: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@student-pii: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@teacher-pii: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  unnecessary-data-asset@vulnerable-children-data: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  missing-hardening@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+  missing-hardening@ssphp-metrics: # wildcards "*" between the @ characters are possible
+    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+    justification: Enter justification here.
+    ticket: Enter ticket number relating to your risk and mitigations here.
+    date: 2024-05-15
+    checked_by: Enter name of owner/ reviewer here.
+
+
+
+#diagram_tweak_edge_layout: spline # values: spline, polyline, false, ortho (this suppresses edge labels), curved (this suppresses edge labels and can cause problems with edges)
+
+#diagram_tweak_suppress_edge_labels: true
+#diagram_tweak_layout_left_to_right: true
+#diagram_tweak_nodesep: 2
+#diagram_tweak_ranksep: 2
+#diagram_tweak_invisible_connections_between_assets:
+#  - tech-asset-source-id-A:tech-asset-target-id-B
+#  - tech-asset-source-id-C:tech-asset-target-id-D
+#diagram_tweak_same_rank_assets:
+#  - tech-asset-source-id-E:tech-asset-target-id-F:tech-asset-source-id-G:tech-asset-target-id-H
+#  - tech-asset-source-id-M:tech-asset-target-id-N:tech-asset-source-id-O

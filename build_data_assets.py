@@ -15,7 +15,7 @@ def build_teacher_pii_data_asset() -> tuple:
         "availability": "operational",
         "justification": "Teacher data might contain personally identifiable information (PII). The integrity and availability of teacher data is required for functioning of the service.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -39,7 +39,7 @@ def build_student_pii_data_asset() -> tuple:
         "availability": "operational",
         "justification": "Student data might contain personally identifiable information (PII). The integrity and availability of student data is required for functioning of the service.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -70,7 +70,7 @@ def build_client_app_data_asset() -> tuple:
         "availability": "important",
         "justification": "The integrity of the application code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -94,7 +94,7 @@ def build_server_app_data_asset() -> tuple:
         "availability": "important",
         "justification": "The integrity of the API code is critical to avoid reputational damage and the availability is important on the long-term scale (but not critical) to ensure users are able to access the service.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -124,7 +124,7 @@ def build_vulnerable_children_data_asset() -> tuple:
         "availability": "critical",
         "justification": "The data of vulnerable children is strictly confidential, and would cause serious harm if made public.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -148,7 +148,7 @@ def build_job_information_data_asset() -> tuple:
         "availability": "operational",
         "justification": "Job information is important but is public information in it's nature.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -172,7 +172,7 @@ def build_school_data_asset() -> tuple:
         "availability": "operational",
         "justification": "School data is collected to provide useful insights in how schools are doing from a social, financial and academic point of view, but most of this information is either already public or can be made available on request.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -203,7 +203,7 @@ def build_payment_details_asset() -> tuple:
         "availability": "important",
         "justification": "Payment details could be PCI or bank account details, either to take payments or to send money to/from the customer.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
@@ -233,7 +233,7 @@ def build_secrets_asset() -> tuple:
         "availability": "operational",
         "justification": "Secrets and API keys are critical and would result in serious breach and reputational damage if found.",
     }
-    template_file = open("data_assets_template.yaml")
+    template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)

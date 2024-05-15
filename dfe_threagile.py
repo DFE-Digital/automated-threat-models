@@ -43,7 +43,7 @@ def produce_assets() -> list:
     all_tech_tags = []
 
     for asset in assets_list:
-        name = asset["result"]["name"]
+        name = asset["result"]["name"].lower()
         asset_type = asset["result"]["type"]
 
         match asset_type:
@@ -221,7 +221,7 @@ def data_assets() -> list:
 def template_inject(
     yaml_list: list, data_list: list, all_tags: list, risks: list = []
 ) -> str:
-    template_file = open("threagile-example-model-template.yaml")
+    template_file = open("yaml-templates/threagile-example-model-template.yaml")
     template_str = template_file.read()
     tech_asset_template = Template(template_str)
 
@@ -335,26 +335,42 @@ if __name__ == "__main__":
         risks_output = template_inject_risks(risks)
         print(risks_output)
     else:
+
+        # Writes initial threat model and produces risks.json 
+
         yaml_list, data_list, all_tags = produce_asset_lists()
 
         final_yaml = template_inject(yaml_list, data_list, all_tags)
 
         print(final_yaml)
 
-        with open("/app/threagile-pre-risks.yaml", "x") as yaml_file:
-            yaml_file.write(final_yaml)
+        try:
+            with open("/app/yaml-templates/threagile-pre-risks.yaml", "x") as yaml_file:
+                yaml_file.write(final_yaml)
+        except FileExistsError:
+            print("File exists, overwriting...")
+            with open("/app/yaml-templates/threagile-pre-risks.yaml", "w") as yaml_file:
+                yaml_file.write(final_yaml)
 
         os.system(
-            "threagile -verbose -model /app/threagile-pre-risks.yaml -output /app/work/output"
+            "threagile -verbose -model /app/yaml-templates/threagile-pre-risks.yaml -output /app/work/output"
         )
+
+
+        # Writes final version, with risks from risks.json added to the yaml for automated mitigation tracking
 
         risks = read_risks_json("/app/work/output/risks.json")
 
         final_with_risks = template_inject(yaml_list, data_list, all_tags, risks)
 
-        with open("/app/dfe-threagile-final.yaml", "x") as yaml_file:
-            yaml_file.write(final_yaml)
+        try:
+            with open("/app/work/yaml-templates/dfe-threagile-final.yaml", "x") as yaml_file:
+                yaml_file.write(final_with_risks)
+        except FileExistsError:
+            print("File exists, overwriting...")
+            with open("/app/work/yaml-templates/dfe-threagile-final.yaml", "w") as yaml_file:
+                yaml_file.write(final_with_risks)
 
         os.system(
-            "threagile -verbose -model /app/dfe-threagile-final.yaml -output /app/work/output"
+            "threagile -verbose -model /app/work/yaml-templates/dfe-threagile-final.yaml -output /app/work/output"
         )
