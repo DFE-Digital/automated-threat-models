@@ -15,8 +15,6 @@ COPY --chown=1000:1000 yaml-templates/technical_asset_template.yaml /app/yaml-te
 COPY --chown=1000:1000 yaml-templates/threagile-example-model-template.yaml /app/yaml-templates
 COPY --chown=1000:1000 yaml-templates/risks_template.yaml /app/yaml-templates
 
-COPY --chown=1000:1000 test-data.json /app/
-
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 

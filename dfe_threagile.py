@@ -27,7 +27,8 @@ from produce_risk_tracker import read_risks_json, template_inject_risks
 
 def temp_file_read() -> list:
     data_list = []
-    file = open("test-data.json", "r")
+    # temp
+    file = open("/app/work/test-data.json", "r")
     lines = file.readlines()
 
     for line in lines:
