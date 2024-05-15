@@ -59,13 +59,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
     
-      - name: Run threagile
+      - name: Test threagile help
         id: threagile-test-optional-args
         uses: pritchyspritch/run-threagile-action@v2
         with:
           optional_args: '--help'
 
-      - name: Run threagile
+      - name: Test threagile with real model
         id: threagile
         uses: pritchyspritch/run-threagile-action@v2
         with:
@@ -73,7 +73,7 @@ jobs:
           output_dir: 'test/location'
 
       # will fail as Azure data ingestion hasn't been automated yet
-      - name: Run threagile
+      - name: Test threagile dfe automation 
         id: dfe-threagile
         uses: pritchyspritch/run-threagile-action@v2
         with:
