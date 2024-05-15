@@ -145,6 +145,6 @@ The output it provides comes from your risks.json that threagile produces, and p
 
 - [x] example GitHub Action to watch file
 - [x] use params for python
-- [ ] produce example sections for common design patterns
 - [ ] improve readme
-- [ ] automate more of the yaml building beyond what threagile can do
+- [x] automate more of the yaml building beyond what threagile can do
+- [ ] automate the Azure data ingestion from Splunk
