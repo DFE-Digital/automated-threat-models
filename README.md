@@ -30,10 +30,7 @@ Before getting started, you will need to:
 
 * install docker
 * [pull the container image from GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) by:
-    * creating a personal access token with `read:packages` permission scoped to the DfE-Digital org
-    * setting your PAT token as an enviornment variable: `export CR_PAT=YOUR_TOKEN`
-    * logging in with docker: `echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin`
-    * pulling the image: `docker pull ghcr.io dfe-digital/automated-threat-models`
+    * pulling the image: `docker pull ghcr.io/dfe-digital/automated-threat-models:main`
 * data from Splunk regarding your Azure resources including: name, kind, type (s1XXX-functionX, functionapp, microsoft.web/sites) **note that this is to be automated in the next iteration**
 
 ### Automated threat models (DfE)
