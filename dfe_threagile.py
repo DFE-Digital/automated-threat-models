@@ -31,7 +31,7 @@ def temp_file_read() -> list:
     # temp: I want to prove we can run threagile in multiple ways in GitHub Actions before the feature is built
     try:
         file = open("/app/work/test-data.json", "r")
-    except FileNotFoundError as e:
+    except FileNotFoundError:
         print(
             "test-data.json file not found, this file is for testing purposes - automated Azure resource collection feature not yet implemented."
         )
