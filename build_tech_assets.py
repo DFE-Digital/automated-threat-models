@@ -9,10 +9,11 @@ def build_container_app_tm(name: str, asset_type: str) -> tuple:
         "size": "application",
         "technology": "web-application",
         "machine": "container",
-        "tags": [name, "azure", "azure-container-app"],
+        "tags": [name, "azure", "azure-container-app", asset_type],
     }
     template_file = open("yaml-templates/technical_asset_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     tech_asset_template = Template(template_str)
     container_app_asset_yaml = tech_asset_template.render(container_app_dict)
 
@@ -29,10 +30,19 @@ def build_key_vault_tm(name: str, asset_type: str) -> tuple:
         "size": "service",
         "technology": "vault",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-key-vault", "vault", "secrets", "keys"],
+        "tags": [
+            name,
+            "azure",
+            "azure-key-vault",
+            "vault",
+            "secrets",
+            "keys",
+            asset_type,
+        ],
     }
     template_file = open("yaml-templates/technical_asset_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     tech_asset_template = Template(template_str)
     key_vault_asset_yaml = tech_asset_template.render(key_vault_dict)
 
@@ -49,10 +59,11 @@ def build_cache_tm(name: str, asset_type: str) -> tuple:
         "size": "service",
         "technology": "database",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-redis-cache", "cache"],
+        "tags": [name, "azure", "azure-redis-cache", "cache", asset_type],
     }
     template_file = open("yaml-templates/technical_asset_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     tech_asset_template = Template(template_str)
     redis_cache_asset_yaml = tech_asset_template.render(redis_cache_dict)
 
@@ -110,15 +121,16 @@ def build_app_service_tm(name: str, asset_type: str, kind: str) -> tuple:
 
     app_service_dict = {
         "name": name,
-        "type": "App Service",
+        "type": asset_type.split("/")[0],
         "description": f"An app service plan, used to deploy a {kind_ref}",
         "size": "service",
         "technology": technology,
         "machine": machine,
-        "tags": [name, "azure", "azure-app-service", machine, technology],
+        "tags": [name, "azure", "azure-app-service", machine, technology, asset_type],
     }
     template_file = open("yaml-templates/technical_asset_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     tech_asset_template = Template(template_str)
     app_service_asset_yaml = tech_asset_template.render(app_service_dict)
 
@@ -135,10 +147,11 @@ def build_storage_tm(name: str, asset_type: str) -> tuple:
         "size": "service",
         "technology": "block-storage",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-storage", "blob"],
+        "tags": [name, "azure", "azure-storage", "blob", asset_type],
     }
     template_file = open("yaml-templates/technical_asset_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     tech_asset_template = Template(template_str)
     storage_asset_yaml = tech_asset_template.render(storage_dict)
 

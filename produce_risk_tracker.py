@@ -17,6 +17,7 @@ def print_yaml(risk_dict: dict):
 def build_risk(risk_dict: dict):
     template_file = open("yaml-templates/risks_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     risk_template = Template(template_str)
     risk_yaml = risk_template.render(risk_dict)
 
