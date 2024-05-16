@@ -17,6 +17,7 @@ def build_teacher_pii_data_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -41,6 +42,7 @@ def build_student_pii_data_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -72,6 +74,7 @@ def build_client_app_data_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -96,6 +99,7 @@ def build_server_app_data_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -126,6 +130,7 @@ def build_vulnerable_children_data_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -150,6 +155,7 @@ def build_job_information_data_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -174,6 +180,7 @@ def build_school_data_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -205,6 +212,7 @@ def build_payment_details_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
@@ -235,6 +243,7 @@ def build_secrets_asset() -> tuple:
     }
     template_file = open("yaml-templates/data_assets_template.yaml")
     template_str = template_file.read()
+    template_file.close()
     data_asset_template = Template(template_str)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 

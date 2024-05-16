@@ -32,7 +32,9 @@ def temp_file_read() -> list:
     try:
         file = open("/app/work/test-data.json", "r")
     except FileNotFoundError as e:
-        print("test-data.json file not found, this file is for testing purposes - automated Azure resource collection feature not yet implemented.")
+        print(
+            "test-data.json file not found, this file is for testing purposes - automated Azure resource collection feature not yet implemented."
+        )
         sys.exit(0)
     lines = file.readlines()
 
@@ -342,7 +344,7 @@ if __name__ == "__main__":
         print(risks_output)
     else:
 
-        # Writes initial threat model and produces risks.json 
+        # Writes initial threat model and produces risks.json
 
         yaml_list, data_list, all_tags = produce_asset_lists()
 
@@ -362,7 +364,6 @@ if __name__ == "__main__":
             "threagile -verbose -model /app/yaml-templates/threagile-pre-risks.yaml -output /app/work/output"
         )
 
-
         # Writes final version, with risks from risks.json added to the yaml for automated mitigation tracking
 
         risks = read_risks_json("/app/work/output/risks.json")
@@ -370,11 +371,15 @@ if __name__ == "__main__":
         final_with_risks = template_inject(yaml_list, data_list, all_tags, risks)
 
         try:
-            with open("/app/work/yaml-templates/dfe-threagile-final.yaml", "x") as yaml_file:
+            with open(
+                "/app/work/yaml-templates/dfe-threagile-final.yaml", "x"
+            ) as yaml_file:
                 yaml_file.write(final_with_risks)
         except FileExistsError:
             print("File exists, overwriting...")
-            with open("/app/work/yaml-templates/dfe-threagile-final.yaml", "w") as yaml_file:
+            with open(
+                "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
+            ) as yaml_file:
                 yaml_file.write(final_with_risks)
 
         os.system(
