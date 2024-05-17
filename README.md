@@ -124,19 +124,10 @@ Then work your way down the YAML. The YAML consists of:
 Once you've produced your YAMl model, you will need to run the command shown below to produce your outputs:
 
 ```shell
-$ docker run --rm -it -v "$(pwd)":/app/work threagile/threagile -verbose -model /app/work/YOUR_YAML.yaml -output /app/work
+$ docker pull ghcr.io/dfe-digital/automated-threat-models:nightly
+$ docker images ls # get the image ID
+$ docker run --rm -it -v "$(pwd)":/app/work <image-id> -verbose -model /app/work/YOUR_YAML.yaml -output /app/work
 ```
-
-If you're happy with the outputs, and would like to start tracking your risks/mitigations, you can run the python script in this repo to produce the YAML required for the bottom section of your YAML file:
-
-```shell
-$ python3 produce_risk_tracker.py
-``` 
-(default values currently hardcoded)
-
-The output it provides comes from your risks.json that threagile produces, and puts it in the format required for the risk tracking section at the bottom of your YAML, simply copy and paste the output. You can then rerun it and the risks will be updated in the reporting outputs.
-
-**IMPORTANT: Changes are only shown in the empty columns on the risks sheet once you change the status from "unchecked" as they relate to you reviewing the issue**
 
 # TODO / Roadmap
 
