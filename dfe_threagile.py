@@ -37,7 +37,6 @@ def temp_file_read() -> list:
             "test-data.json file not found, this file is for testing purposes - automated Azure resource collection feature not yet implemented."
         )
         sys.exit(0)
-    
 
     for line in lines:
         stripped_line = json.loads(line.strip())
