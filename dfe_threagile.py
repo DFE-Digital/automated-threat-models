@@ -30,13 +30,14 @@ def temp_file_read() -> list:
     data_list = []
     # temp: I want to prove we can run threagile in multiple ways in GitHub Actions before the feature is built
     try:
-        file = open("/app/work/test-data.json", "r")
+        with open("/app/work/test-data.json", "r") as file:
+            lines = file.readlines()
     except FileNotFoundError:
         print(
             "test-data.json file not found, this file is for testing purposes - automated Azure resource collection feature not yet implemented."
         )
         sys.exit(0)
-    lines = file.readlines()
+    
 
     for line in lines:
         stripped_line = json.loads(line.strip())
@@ -229,8 +230,8 @@ def data_assets() -> list:
 def template_inject(
     yaml_list: list, data_list: list, all_tags: list, risks: list = []
 ) -> str:
-    template_file = open("yaml-templates/threagile-example-model-template.yaml")
-    template_str = template_file.read()
+    with open("yaml-templates/threagile-example-model-template.yaml") as template_file:
+        template_str = template_file.read()
     tech_asset_template = Template(template_str)
 
     final_yaml = tech_asset_template.render(

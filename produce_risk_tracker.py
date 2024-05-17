@@ -15,9 +15,8 @@ def print_yaml(risk_dict: dict):
 
 
 def build_risk(risk_dict: dict):
-    template_file = open("yaml-templates/risks_template.yaml")
-    template_str = template_file.read()
-    template_file.close()
+    with open("yaml-templates/risks_template.yaml") as template_file:
+        template_str = template_file.read()
     risk_template = Template(template_str)
     risk_yaml = risk_template.render(risk_dict)
 
@@ -25,8 +24,8 @@ def build_risk(risk_dict: dict):
 
 
 def read_risks_json(file_path: str) -> list:
-    file = open(file_path)
-    data = json.load(file)
+    with open(file_path) as file:
+        data = json.load(file)
 
     date_today_obj = datetime.datetime.now()
     date_today_fmt = date_today_obj.strftime("%Y-%m-%d")
@@ -54,8 +53,8 @@ def read_risks_json(file_path: str) -> list:
 
 def template_inject_risks(risks: list) -> str:
     # change to the output from asset builder
-    template_file = open("yaml-templates/threagile-pre-risks.yaml")
-    template_str = template_file.read()
+    with open("yaml-templates/threagile-pre-risks.yaml") as template_file:
+        template_str = template_file.read()
     risks_template = Template(template_str)
     final_yaml = risks_template.render(risks=risks)
     print(final_yaml)
