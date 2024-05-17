@@ -200,7 +200,7 @@ class TestDataAssets(unittest.TestCase):
     integrity: important # values: archive, operational, important, critical, mission-critical
     availability: operational # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Job information is important but is public information in it's nature."""
+      Job information is important but is public information in it&#39;s nature."""
 
         expected_tag_list = ["job-information", "database", "azure", "public"]
 
