@@ -17,7 +17,7 @@ def print_yaml(risk_dict: dict):
 def build_risk(risk_dict: dict):
     with open("yaml-templates/risks_template.yaml") as template_file:
         template_str = template_file.read()
-    risk_template = Template(template_str)
+    risk_template = Template(template_str, autoescape=True)
     risk_yaml = risk_template.render(risk_dict)
 
     return risk_yaml
@@ -55,7 +55,7 @@ def template_inject_risks(risks: list) -> str:
     # change to the output from asset builder
     with open("yaml-templates/threagile-pre-risks.yaml") as template_file:
         template_str = template_file.read()
-    risks_template = Template(template_str)
+    risks_template = Template(template_str, autoescape=True)
     final_yaml = risks_template.render(risks=risks)
     print(final_yaml)
     return final_yaml

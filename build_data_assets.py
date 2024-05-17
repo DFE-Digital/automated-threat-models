@@ -17,7 +17,7 @@ def build_teacher_pii_data_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     teacher_pii_tags = data_asset_dict["tags_list"]
@@ -41,7 +41,7 @@ def build_student_pii_data_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     student_pii_tags = data_asset_dict["tags_list"]
@@ -72,7 +72,7 @@ def build_client_app_data_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     client_app_tags = data_asset_dict["tags_list"]
@@ -96,7 +96,7 @@ def build_server_app_data_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     server_app_tags = data_asset_dict["tags_list"]
@@ -126,7 +126,7 @@ def build_vulnerable_children_data_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     vulnerable_children_data_tags = data_asset_dict["tags_list"]
@@ -150,7 +150,7 @@ def build_job_information_data_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     job_info_tags = data_asset_dict["tags_list"]
@@ -174,7 +174,7 @@ def build_school_data_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     school_data_tags = data_asset_dict["tags_list"]
@@ -205,7 +205,7 @@ def build_payment_details_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     teacher_pii_tags = data_asset_dict["tags_list"]
@@ -235,7 +235,7 @@ def build_secrets_asset() -> tuple:
     }
     with open("yaml-templates/data_assets_template.yaml") as template_file:
         template_str = template_file.read()
-    data_asset_template = Template(template_str)
+    data_asset_template = Template(template_str, autoescape=True)
     data_asset_yaml = data_asset_template.render(data_asset_dict)
 
     teacher_pii_tags = data_asset_dict["tags_list"]

@@ -1,6 +1,6 @@
   {{name}}:
     id: {{name}}
-    description: {{type}}: {{description}}
+    description: {{type}} - {{description}}
     type: external-entity
     usage: business
     used_as_client_by_human: false

@@ -13,7 +13,7 @@ def build_container_app_tm(name: str, asset_type: str) -> tuple:
     }
     with open("yaml-templates/technical_asset_template.yaml") as template_file:
         template_str = template_file.read()
-    tech_asset_template = Template(template_str)
+    tech_asset_template = Template(template_str, autoescape=True)
     container_app_asset_yaml = tech_asset_template.render(container_app_dict)
 
     tag_list = container_app_dict["tags"]
@@ -41,7 +41,7 @@ def build_key_vault_tm(name: str, asset_type: str) -> tuple:
     }
     with open("yaml-templates/technical_asset_template.yaml") as template_file:
         template_str = template_file.read()
-    tech_asset_template = Template(template_str)
+    tech_asset_template = Template(template_str, autoescape=True)
     key_vault_asset_yaml = tech_asset_template.render(key_vault_dict)
 
     tag_list = key_vault_dict["tags"]
@@ -61,7 +61,7 @@ def build_cache_tm(name: str, asset_type: str) -> tuple:
     }
     with open("yaml-templates/technical_asset_template.yaml") as template_file:
         template_str = template_file.read()
-    tech_asset_template = Template(template_str)
+    tech_asset_template = Template(template_str, autoescape=True)
     redis_cache_asset_yaml = tech_asset_template.render(redis_cache_dict)
 
     tag_list = redis_cache_dict["tags"]
@@ -127,7 +127,7 @@ def build_app_service_tm(name: str, asset_type: str, kind: str) -> tuple:
     }
     with open("yaml-templates/technical_asset_template.yaml") as template_file:
         template_str = template_file.read()
-    tech_asset_template = Template(template_str)
+    tech_asset_template = Template(template_str, autoescape=True)
     app_service_asset_yaml = tech_asset_template.render(app_service_dict)
 
     tag_list = app_service_dict["tags"]
@@ -147,7 +147,7 @@ def build_storage_tm(name: str, asset_type: str) -> tuple:
     }
     with open("yaml-templates/technical_asset_template.yaml") as template_file:
         template_str = template_file.read()
-    tech_asset_template = Template(template_str)
+    tech_asset_template = Template(template_str, autoescape=True)
     storage_asset_yaml = tech_asset_template.render(storage_dict)
 
     tag_list = storage_dict["tags"]

@@ -102,20 +102,25 @@ tags_available:
   - vault
   - secrets
   - keys
+  - microsoft.keyvault/vaults
   - s184d01-comp-complete-app-worker
   - azure-container-app
+  - microsoft.app/containerapps
   - s184d01-compdefault
   - azure-redis-cache
   - cache
+  - microsoft.cache/redis
   - s184d01-comp-complete-app
   - tfstatep3sha
   - azure-storage
   - blob
+  - microsoft.storage/storageaccounts
   - tfstatel95cd
   - ssphp-metrics-rust-p3sha
   - azure-app-service
   - serverless
   - function
+  - microsoft.web/sites
   - ssphp-metrics
   - teacher-pii
   - database
@@ -262,7 +267,7 @@ data_assets:
     integrity: important # values: archive, operational, important, critical, mission-critical
     availability: operational # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Job information is important but is public information in it's nature.
+      Job information is important but is public information in it&amp;#39;s nature.
 
   school-data:
     name: school-data
@@ -330,7 +335,7 @@ technical_assets:
 
   s184d01-comp-tfvars:
     id: s184d01-comp-tfvars
-    description: A key vault used to hold sensitive keys, secrets, and config.
+    description: microsoft.keyvault - A key vault used to hold sensitive keys, secrets, and config.
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -345,6 +350,7 @@ technical_assets:
         - vault
         - secrets
         - keys
+        - microsoft.keyvault/vaults
     internet: true
     machine: virtual
     encryption: none
@@ -385,7 +391,7 @@ technical_assets:
 
   s184d01-comp-complete-app-worker:
     id: s184d01-comp-complete-app-worker
-    description: A container app running a web application for the public.
+    description: microsoft.app - A container app running a web application for the public.
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -397,6 +403,7 @@ technical_assets:
         - s184d01-comp-complete-app-worker
         - azure
         - azure-container-app
+        - microsoft.app/containerapps
     internet: true
     machine: container
     encryption: none
@@ -437,7 +444,7 @@ technical_assets:
 
   s184d01-compdefault:
     id: s184d01-compdefault
-    description: A redis cache for holding data for reliability.
+    description: microsoft.cache - A redis cache for holding data for reliability.
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -450,6 +457,7 @@ technical_assets:
         - azure
         - azure-redis-cache
         - cache
+        - microsoft.cache/redis
     internet: true
     machine: virtual
     encryption: none
@@ -490,7 +498,7 @@ technical_assets:
 
   s184d01-comp-complete-app:
     id: s184d01-comp-complete-app
-    description: A container app running a web application for the public.
+    description: microsoft.app - A container app running a web application for the public.
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -502,6 +510,7 @@ technical_assets:
         - s184d01-comp-complete-app
         - azure
         - azure-container-app
+        - microsoft.app/containerapps
     internet: true
     machine: container
     encryption: none
@@ -542,7 +551,7 @@ technical_assets:
 
   tfstatep3sha:
     id: tfstatep3sha
-    description: An Azure Storage account holding storage blobs.
+    description: microsoft.storage - An Azure Storage account holding storage blobs.
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -555,6 +564,7 @@ technical_assets:
         - azure
         - azure-storage
         - blob
+        - microsoft.storage/storageaccounts
     internet: true
     machine: virtual
     encryption: none
@@ -595,7 +605,7 @@ technical_assets:
 
   tfstatel95cd:
     id: tfstatel95cd
-    description: An Azure Storage account holding storage blobs.
+    description: microsoft.storage - An Azure Storage account holding storage blobs.
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -608,6 +618,7 @@ technical_assets:
         - azure
         - azure-storage
         - blob
+        - microsoft.storage/storageaccounts
     internet: true
     machine: virtual
     encryption: none
@@ -648,7 +659,7 @@ technical_assets:
 
   ssphp-metrics-rust-p3sha:
     id: ssphp-metrics-rust-p3sha
-    description: An app service plan, used to deploy a Linux Consumption Function App
+    description: microsoft.web - An app service plan, used to deploy a Linux Consumption Function App
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -662,6 +673,7 @@ technical_assets:
         - azure-app-service
         - serverless
         - function
+        - microsoft.web/sites
     internet: true
     machine: serverless
     encryption: none
@@ -702,7 +714,7 @@ technical_assets:
 
   ssphp-metrics:
     id: ssphp-metrics
-    description: A key vault used to hold sensitive keys, secrets, and config.
+    description: microsoft.keyvault - A key vault used to hold sensitive keys, secrets, and config.
     type: external-entity
     usage: business
     used_as_client_by_human: false
@@ -717,6 +729,7 @@ technical_assets:
         - vault
         - secrets
         - keys
+        - microsoft.keyvault/vaults
     internet: true
     machine: virtual
     encryption: none
@@ -900,256 +913,256 @@ individual_risk_categories: # used for adding custom manually identified risks
 
 risk_tracking:
 
-  unencrypted-asset@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+  container-baseimage-backdooring@s184d01-comp-complete-app-worker: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unencrypted-asset@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+  container-baseimage-backdooring@s184d01-comp-complete-app: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unencrypted-asset@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+  missing-vault-isolation@s184d01-comp-tfvars: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unencrypted-asset@s184d01-compdefault: # wildcards "*" between the @ characters are possible
+  missing-vault-isolation@ssphp-metrics: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unencrypted-asset@ssphp-metrics-rust-p3sha: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@s184d01-comp-complete-app-worker: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unencrypted-asset@ssphp-metrics: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@s184d01-comp-complete-app: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unencrypted-asset@tfstatel95cd: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@s184d01-comp-tfvars: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unencrypted-asset@tfstatep3sha: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@s184d01-compdefault: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@ssphp-metrics-rust-p3sha: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@ssphp-metrics: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@tfstatel95cd: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@s184d01-compdefault: # wildcards "*" between the @ characters are possible
+  unencrypted-asset@tfstatep3sha: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@ssphp-metrics-rust-p3sha: # wildcards "*" between the @ characters are possible
+  missing-cloud-hardening@s184d01-comp-complete-app: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@ssphp-metrics: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@client-application-code: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@tfstatel95cd: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@job-information: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-technical-asset@tfstatep3sha: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@payment-details: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  cross-site-scripting@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@school-data: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  cross-site-scripting@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@secrets-and-api-keys: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  missing-cloud-hardening@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@server-application-code: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  container-baseimage-backdooring@s184d01-comp-complete-app-worker: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@student-pii: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  container-baseimage-backdooring@s184d01-comp-complete-app: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@teacher-pii: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  missing-vault-isolation@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+  unnecessary-data-asset@vulnerable-children-data: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  missing-vault-isolation@ssphp-metrics: # wildcards "*" between the @ characters are possible
+  cross-site-scripting@s184d01-comp-complete-app-worker: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  missing-network-segmentation@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+  cross-site-scripting@s184d01-comp-complete-app: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  missing-network-segmentation@ssphp-metrics: # wildcards "*" between the @ characters are possible
+  missing-hardening@s184d01-comp-tfvars: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@client-application-code: # wildcards "*" between the @ characters are possible
+  missing-hardening@ssphp-metrics: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@job-information: # wildcards "*" between the @ characters are possible
+  missing-network-segmentation@s184d01-comp-tfvars: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@payment-details: # wildcards "*" between the @ characters are possible
+  missing-network-segmentation@ssphp-metrics: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@school-data: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@s184d01-comp-complete-app-worker: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@secrets-and-api-keys: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@s184d01-comp-complete-app: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@server-application-code: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@s184d01-comp-tfvars: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@student-pii: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@s184d01-compdefault: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@teacher-pii: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@ssphp-metrics-rust-p3sha: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  unnecessary-data-asset@vulnerable-children-data: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@ssphp-metrics: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  missing-hardening@s184d01-comp-tfvars: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@tfstatel95cd: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
-  missing-hardening@ssphp-metrics: # wildcards "*" between the @ characters are possible
+  unnecessary-technical-asset@tfstatep3sha: # wildcards &#34;*&#34; between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: Enter justification here.
     ticket: Enter ticket number relating to your risk and mitigations here.
-    date: 2024-05-15
+    date: 2024-05-17
     checked_by: Enter name of owner/ reviewer here.
 
 

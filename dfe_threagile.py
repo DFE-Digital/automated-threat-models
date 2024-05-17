@@ -2,6 +2,7 @@ import json
 import argparse
 import os
 import sys
+import re
 
 from jinja2 import Template
 
@@ -231,7 +232,7 @@ def template_inject(
 ) -> str:
     with open("yaml-templates/threagile-example-model-template.yaml") as template_file:
         template_str = template_file.read()
-    tech_asset_template = Template(template_str)
+    tech_asset_template = Template(template_str, autoescape=True)
 
     final_yaml = tech_asset_template.render(
         yaml_list=yaml_list, data_list=data_list, all_tags=all_tags, risks=risks
@@ -375,12 +376,34 @@ if __name__ == "__main__":
                 "/app/work/yaml-templates/dfe-threagile-final.yaml", "x"
             ) as yaml_file:
                 yaml_file.write(final_with_risks)
+
+            with open(
+                "/app/work/yaml-templates/dfe-threagile-final.yaml", "r"
+            ) as yaml_file:
+                yaml_contents = yaml_file.read()
+                pattern = re.compile(re.escape("rating: &gt;"))
+                updated_contents = pattern.sub("rating: >", yaml_contents)
+            with open(
+                "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
+            ) as yaml_file:
+                yaml_file.write(updated_contents)
         except FileExistsError:
             print("File exists, overwriting...")
             with open(
                 "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
             ) as yaml_file:
                 yaml_file.write(final_with_risks)
+
+            with open(
+                "/app/work/yaml-templates/dfe-threagile-final.yaml", "r"
+            ) as yaml_file:
+                yaml_contents = yaml_file.read()
+                pattern = re.compile(re.escape("rating: &gt;"))
+                updated_contents = pattern.sub("rating: >", yaml_contents)
+            with open(
+                "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
+            ) as yaml_file:
+                yaml_file.write(updated_contents)
 
         os.system(
             "threagile -verbose -model /app/work/yaml-templates/dfe-threagile-final.yaml -output /app/work/output"

@@ -13,5 +13,5 @@
     confidentiality: {{confidentiality}} # values: public, internal, restricted, confidential, strictly-confidential
     integrity: {{integrity}} # values: archive, operational, important, critical, mission-critical
     availability: {{availability}} # values: archive, operational, important, critical, mission-critical
-    justification_cia_rating: >
-      {{justification}}
+    justification_cia_rating: {% autoescape false %}>
+      {% endautoescape %}{{justification}}
