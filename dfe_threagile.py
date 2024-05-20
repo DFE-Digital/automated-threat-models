@@ -12,6 +12,8 @@ from build_tech_assets import (
     build_cache_tm,
     build_app_service_tm,
     build_storage_tm,
+    build_db_tm,
+    build_vm_tm
 )
 from build_data_assets import (
     build_client_app_data_asset,
@@ -101,6 +103,22 @@ def produce_assets() -> list:
                     all_tech_tags.append(tag)
 
                 print(storage_yaml)
+            case "microsoft.sql/servers/databases":
+                db_yaml, tag_list = build_db_tm(name, asset_type)
+                yaml_list.append(db_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+
+                print(db_yaml)
+            case "microsoft.compute/virtualmachines":
+                vm_yaml, tag_list = build_vm_tm(name, asset_type)
+                yaml_list.append(vm_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+
+                print(vm_yaml)
 
     return yaml_list, all_tech_tags
 
