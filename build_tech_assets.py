@@ -163,7 +163,15 @@ def build_db_tm(name: str, asset_type: str) -> tuple:
         "size": "service",
         "technology": "database",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-sql", "sql", "microsoft-sql", "database", asset_type],
+        "tags": [
+            name,
+            "azure",
+            "azure-sql",
+            "sql",
+            "microsoft-sql",
+            "database",
+            asset_type,
+        ],
     }
     with open("yaml-templates/technical_asset_template.yaml") as template_file:
         template_str = template_file.read()
@@ -183,7 +191,14 @@ def build_vm_tm(name: str, asset_type: str) -> tuple:
         "size": "system",
         "technology": "web-server",
         "machine": "virtual",
-        "tags": [name, "azure", "azure-virtual-machine", "virtual-machine", "vm", asset_type],
+        "tags": [
+            name,
+            "azure",
+            "azure-virtual-machine",
+            "virtual-machine",
+            "vm",
+            asset_type,
+        ],
     }
     with open("yaml-templates/technical_asset_template.yaml") as template_file:
         template_str = template_file.read()

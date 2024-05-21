@@ -2,7 +2,6 @@ import json
 import argparse
 import os
 import sys
-import re
 
 from jinja2 import Template
 
@@ -13,7 +12,7 @@ from build_tech_assets import (
     build_app_service_tm,
     build_storage_tm,
     build_db_tm,
-    build_vm_tm
+    build_vm_tm,
 )
 from build_data_assets import (
     build_client_app_data_asset,
@@ -246,7 +245,11 @@ def data_assets() -> list:
 
 
 def template_inject(
-    yaml_list: list, data_list: list, all_tags: list, risks: list = [], autoescape: bool = True
+    yaml_list: list,
+    data_list: list,
+    all_tags: list,
+    risks: list = [],
+    autoescape: bool = True,
 ) -> str:
     with open("yaml-templates/threagile-example-model-template.yaml") as template_file:
         template_str = template_file.read()
@@ -387,7 +390,9 @@ if __name__ == "__main__":
 
         risks = read_risks_json("/app/work/output/risks.json")
 
-        final_with_risks = template_inject(yaml_list, data_list, all_tags, risks, autoescape=False)
+        final_with_risks = template_inject(
+            yaml_list, data_list, all_tags, risks, autoescape=False
+        )
 
         try:
             with open(
