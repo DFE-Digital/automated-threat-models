@@ -132,40 +132,85 @@ def data_assets_ssphp_yaml(file: str) -> list:
     if "teacher_pii" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["teacher_pii"]:
             print(data_assets_yaml["data_types"]["teacher_pii"])
-            dicts.append(dict(name="teacher-pii", present=data_assets_yaml["data_types"]["teacher_pii"]))
-    
+            dicts.append(
+                dict(
+                    name="teacher-pii",
+                    present=data_assets_yaml["data_types"]["teacher_pii"],
+                )
+            )
+
     if "student_pii" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["student_pii"]:
-            dicts.append(dict(name="student-pii", present=data_assets_yaml["data_types"]["student_pii"]))
+            dicts.append(
+                dict(
+                    name="student-pii",
+                    present=data_assets_yaml["data_types"]["student_pii"],
+                )
+            )
 
     if "client_app_code" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["client_app_code"]:
-            dicts.append(dict(name="client-application-code", present=data_assets_yaml["data_types"]["client_app_code"]))
+            dicts.append(
+                dict(
+                    name="client-application-code",
+                    present=data_assets_yaml["data_types"]["client_app_code"],
+                )
+            )
 
     if "server_app_code" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["server_app_code"]:
-            dicts.append(dict(name="server-application-code", present=data_assets_yaml["data_types"]["server_app_code"]))
-            
+            dicts.append(
+                dict(
+                    name="server-application-code",
+                    present=data_assets_yaml["data_types"]["server_app_code"],
+                )
+            )
+
     if "vulnerable_children_data" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["vulnerable_children_data"]:
-            dicts.append(dict(name="vulnerable-children-data", present=data_assets_yaml["data_types"]["vulnerable_children_data"]))
+            dicts.append(
+                dict(
+                    name="vulnerable-children-data",
+                    present=data_assets_yaml["data_types"]["vulnerable_children_data"],
+                )
+            )
 
     if "job_information" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["job_information"]:
-            dicts.append(dict(name="job-information", present=data_assets_yaml["data_types"]["job_information"]))
+            dicts.append(
+                dict(
+                    name="job-information",
+                    present=data_assets_yaml["data_types"]["job_information"],
+                )
+            )
 
     if "school_data" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["school_data"]:
-            dicts.append(dict(name="school-data", present=data_assets_yaml["data_types"]["school_data"]))
+            dicts.append(
+                dict(
+                    name="school-data",
+                    present=data_assets_yaml["data_types"]["school_data"],
+                )
+            )
 
     if "payment_details" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["payment_details"]:
-            dicts.append(dict(name="payment-details", present=data_assets_yaml["data_types"]["payment_details"]))
+            dicts.append(
+                dict(
+                    name="payment-details",
+                    present=data_assets_yaml["data_types"]["payment_details"],
+                )
+            )
 
     if "secrets_and_keys" in data_assets_yaml["data_types"]:
         if data_assets_yaml["data_types"]["secrets_and_keys"]:
-            dicts.append(dict(name="secrets-and-api-keys", present=data_assets_yaml["data_types"]["secrets_and_keys"]))
-   
+            dicts.append(
+                dict(
+                    name="secrets-and-api-keys",
+                    present=data_assets_yaml["data_types"]["secrets_and_keys"],
+                )
+            )
+
     return dicts
 
 
