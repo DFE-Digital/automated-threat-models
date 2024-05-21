@@ -246,7 +246,7 @@ def data_assets() -> list:
 
 
 def template_inject(
-    yaml_list: list, data_list: list, all_tags: list, risks: list = []
+    yaml_list: list, data_list: list, all_tags: list, risks: list = [], autoescape: bool = True
 ) -> str:
     with open("yaml-templates/threagile-example-model-template.yaml") as template_file:
         template_str = template_file.read()
@@ -387,41 +387,19 @@ if __name__ == "__main__":
 
         risks = read_risks_json("/app/work/output/risks.json")
 
-        final_with_risks = template_inject(yaml_list, data_list, all_tags, risks)
+        final_with_risks = template_inject(yaml_list, data_list, all_tags, risks, autoescape=False)
 
         try:
             with open(
                 "/app/work/yaml-templates/dfe-threagile-final.yaml", "x"
             ) as yaml_file:
                 yaml_file.write(final_with_risks)
-
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "r"
-            ) as yaml_file:
-                yaml_contents = yaml_file.read()
-                pattern = re.compile(re.escape("rating: &gt;"))
-                updated_contents = pattern.sub("rating: >", yaml_contents)
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
-            ) as yaml_file:
-                yaml_file.write(updated_contents)
         except FileExistsError:
             print("File exists, overwriting...")
             with open(
                 "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
             ) as yaml_file:
                 yaml_file.write(final_with_risks)
-
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "r"
-            ) as yaml_file:
-                yaml_contents = yaml_file.read()
-                pattern = re.compile(re.escape("rating: &gt;"))
-                updated_contents = pattern.sub("rating: >", yaml_contents)
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
-            ) as yaml_file:
-                yaml_file.write(updated_contents)
 
         os.system(
             "threagile -verbose -model /app/work/yaml-templates/dfe-threagile-final.yaml -output /app/work/output"
