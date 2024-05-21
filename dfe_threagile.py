@@ -2,6 +2,7 @@ import json
 import argparse
 import os
 import sys
+import yaml
 
 from jinja2 import Template
 
@@ -120,6 +121,52 @@ def produce_assets() -> list:
                 print(vm_yaml)
 
     return yaml_list, all_tech_tags
+
+
+def data_assets_ssphp_yaml(file: str) -> list:
+    dicts = []
+    with open(file, "r") as yaml_file:
+        file_contents = yaml_file.read()
+    data_assets_yaml = yaml.load(file_contents, Loader=yaml.Loader)
+
+    if "teacher_pii" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["teacher_pii"]:
+            print(data_assets_yaml["data_types"]["teacher_pii"])
+            dicts.append(dict(name="teacher-pii", present=data_assets_yaml["data_types"]["teacher_pii"]))
+    
+    if "student_pii" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["student_pii"]:
+            dicts.append(dict(name="student-pii", present=data_assets_yaml["data_types"]["student_pii"]))
+
+    if "client_app_code" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["client_app_code"]:
+            dicts.append(dict(name="client-application-code", present=data_assets_yaml["data_types"]["client_app_code"]))
+
+    if "server_app_code" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["server_app_code"]:
+            dicts.append(dict(name="server-application-code", present=data_assets_yaml["data_types"]["server_app_code"]))
+            
+    if "vulnerable_children_data" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["vulnerable_children_data"]:
+            dicts.append(dict(name="vulnerable-children-data", present=data_assets_yaml["data_types"]["vulnerable_children_data"]))
+
+    if "job_information" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["job_information"]:
+            dicts.append(dict(name="job-information", present=data_assets_yaml["data_types"]["job_information"]))
+
+    if "school_data" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["school_data"]:
+            dicts.append(dict(name="school-data", present=data_assets_yaml["data_types"]["school_data"]))
+
+    if "payment_details" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["payment_details"]:
+            dicts.append(dict(name="payment-details", present=data_assets_yaml["data_types"]["payment_details"]))
+
+    if "secrets_and_keys" in data_assets_yaml["data_types"]:
+        if data_assets_yaml["data_types"]["secrets_and_keys"]:
+            dicts.append(dict(name="secrets-and-api-keys", present=data_assets_yaml["data_types"]["secrets_and_keys"]))
+   
+    return dicts
 
 
 def data_assets() -> list:
@@ -253,7 +300,7 @@ def template_inject(
 ) -> str:
     with open("yaml-templates/threagile-example-model-template.yaml") as template_file:
         template_str = template_file.read()
-    tech_asset_template = Template(template_str, autoescape=True)
+    tech_asset_template = Template(template_str, autoescape=autoescape)
 
     final_yaml = tech_asset_template.render(
         yaml_list=yaml_list, data_list=data_list, all_tags=all_tags, risks=risks
@@ -327,10 +374,13 @@ def produce_data_assets(chosen_data_asset_dicts: list) -> list:
     return built_data_assets, all_data_tags
 
 
-def produce_asset_lists() -> tuple:
+def produce_asset_lists(ssphp_yaml=None) -> tuple:
     yaml_list, all_tech_tags = produce_assets()
 
-    chosen_data_assets_dicts = data_assets()
+    if ssphp_yaml is not None:
+        chosen_data_assets_dicts = data_assets_ssphp_yaml(ssphp_yaml)
+    else:
+        chosen_data_assets_dicts = data_assets()
 
     data_list, all_data_tags = produce_data_assets(chosen_data_assets_dicts)
 
@@ -355,7 +405,13 @@ if __name__ == "__main__":
         "--risks-json",
         nargs="?",
         default="output/risks.json",
-        help="The file path for you risks json file.",
+        help="The file path for your risks json file.",
+    )
+    parser.add_argument(
+        "--ssphp-yaml",
+        nargs="?",
+        default="yaml-templates/ssphp_test.yaml",
+        help="The file path for the Continuous Assurance yaml file.",
     )
 
     args = parser.parse_args()
@@ -367,10 +423,13 @@ if __name__ == "__main__":
     else:
 
         # Writes initial threat model and produces risks.json
+        if args.ssphp_yaml:
+            ssphp_yaml = args.ssphp_yaml
+            yaml_list, data_list, all_tags = produce_asset_lists(ssphp_yaml)
+        else:
+            yaml_list, data_list, all_tags = produce_asset_lists()
 
-        yaml_list, data_list, all_tags = produce_asset_lists()
-
-        final_yaml = template_inject(yaml_list, data_list, all_tags)
+        final_yaml = template_inject(yaml_list, data_list, all_tags, autoescape=False)
 
         print(final_yaml)
 

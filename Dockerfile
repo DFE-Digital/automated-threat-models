@@ -6,6 +6,7 @@ WORKDIR /app
 
 RUN mkdir /app/yaml-templates && chown 1000:1000 /app/yaml-templates
 
+COPY --chown=1000:1000 requirements.txt /app/
 COPY --chown=1000:1000 build_data_assets.py /app/
 COPY --chown=1000:1000 build_tech_assets.py /app/
 COPY --chown=1000:1000 dfe_threagile.py /app/
@@ -22,6 +23,6 @@ RUN python3 -m ensurepip
 
 RUN pip3 install --no-cache --upgrade pip setuptools
 
-RUN pip3 install jinja2
+RUN pip3 install -r requirements.txt
 
 USER 1000:1000

@@ -1,0 +1,20 @@
+---
+service:
+  id: S194
+  name: S194_CISO_Continuous_Assurance
+  display_name: CISO Continuous Assurance
+  group: Digital and Technology
+  division: CISD
+  portfolio: Protective Monitoring
+  risk_profile: 30
+
+data_types:
+  teacher_pii: true
+  student_pii: true
+  client_app_code: true
+  server_app_code: true
+  vulnerable_children_data: true
+  job_information: true
+  school_data: true
+  payment_details: true
+  secrets_and_keys: true
