@@ -12,6 +12,8 @@ from build_tech_assets import (
     build_cache_tm,
     build_app_service_tm,
     build_storage_tm,
+    build_db_tm,
+    build_vm_tm
 )
 from build_data_assets import (
     build_client_app_data_asset,
@@ -101,6 +103,22 @@ def produce_assets() -> list:
                     all_tech_tags.append(tag)
 
                 print(storage_yaml)
+            case "microsoft.sql/servers/databases":
+                db_yaml, tag_list = build_db_tm(name, asset_type)
+                yaml_list.append(db_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+
+                print(db_yaml)
+            case "microsoft.compute/virtualmachines":
+                vm_yaml, tag_list = build_vm_tm(name, asset_type)
+                yaml_list.append(vm_yaml)
+
+                for tag in tag_list:
+                    all_tech_tags.append(tag)
+
+                print(vm_yaml)
 
     return yaml_list, all_tech_tags
 
@@ -228,7 +246,7 @@ def data_assets() -> list:
 
 
 def template_inject(
-    yaml_list: list, data_list: list, all_tags: list, risks: list = []
+    yaml_list: list, data_list: list, all_tags: list, risks: list = [], autoescape: bool = True
 ) -> str:
     with open("yaml-templates/threagile-example-model-template.yaml") as template_file:
         template_str = template_file.read()
@@ -369,41 +387,19 @@ if __name__ == "__main__":
 
         risks = read_risks_json("/app/work/output/risks.json")
 
-        final_with_risks = template_inject(yaml_list, data_list, all_tags, risks)
+        final_with_risks = template_inject(yaml_list, data_list, all_tags, risks, autoescape=False)
 
         try:
             with open(
                 "/app/work/yaml-templates/dfe-threagile-final.yaml", "x"
             ) as yaml_file:
                 yaml_file.write(final_with_risks)
-
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "r"
-            ) as yaml_file:
-                yaml_contents = yaml_file.read()
-                pattern = re.compile(re.escape("rating: &gt;"))
-                updated_contents = pattern.sub("rating: >", yaml_contents)
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
-            ) as yaml_file:
-                yaml_file.write(updated_contents)
         except FileExistsError:
             print("File exists, overwriting...")
             with open(
                 "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
             ) as yaml_file:
                 yaml_file.write(final_with_risks)
-
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "r"
-            ) as yaml_file:
-                yaml_contents = yaml_file.read()
-                pattern = re.compile(re.escape("rating: &gt;"))
-                updated_contents = pattern.sub("rating: >", yaml_contents)
-            with open(
-                "/app/work/yaml-templates/dfe-threagile-final.yaml", "w"
-            ) as yaml_file:
-                yaml_file.write(updated_contents)
 
         os.system(
             "threagile -verbose -model /app/work/yaml-templates/dfe-threagile-final.yaml -output /app/work/output"

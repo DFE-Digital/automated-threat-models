@@ -153,3 +153,43 @@ def build_storage_tm(name: str, asset_type: str) -> tuple:
     tag_list = storage_dict["tags"]
 
     return storage_asset_yaml, tag_list
+
+
+def build_db_tm(name: str, asset_type: str) -> tuple:
+    db_dict = {
+        "name": name,
+        "type": asset_type.split("/")[0],
+        "description": "A Microsoft SQL Database.",
+        "size": "service",
+        "technology": "database",
+        "machine": "virtual",
+        "tags": [name, "azure", "azure-sql", "sql", "microsoft-sql", "database", asset_type],
+    }
+    with open("yaml-templates/technical_asset_template.yaml") as template_file:
+        template_str = template_file.read()
+    tech_asset_template = Template(template_str, autoescape=True)
+    db_asset_yaml = tech_asset_template.render(db_dict)
+
+    tag_list = db_dict["tags"]
+
+    return db_asset_yaml, tag_list
+
+
+def build_vm_tm(name: str, asset_type: str) -> tuple:
+    vm_dict = {
+        "name": name,
+        "type": asset_type.split("/")[0],
+        "description": "An Azure virtual machine.",
+        "size": "system",
+        "technology": "web-server",
+        "machine": "virtual",
+        "tags": [name, "azure", "azure-virtual-machine", "virtual-machine", "vm", asset_type],
+    }
+    with open("yaml-templates/technical_asset_template.yaml") as template_file:
+        template_str = template_file.read()
+    tech_asset_template = Template(template_str, autoescape=True)
+    vm_asset_yaml = tech_asset_template.render(vm_dict)
+
+    tag_list = vm_dict["tags"]
+
+    return vm_asset_yaml, tag_list
