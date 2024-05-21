@@ -6,6 +6,8 @@ from build_tech_assets import (
     build_cache_tm,
     build_app_service_tm,
     build_storage_tm,
+    build_db_tm,
+    build_vm_tm,
 )
 
 
@@ -133,6 +135,45 @@ class TestDataAssets(unittest.TestCase):
             app_service_yaml_contains_correct_values(
                 app_service_asset_yaml, name, asset_type, machine, technology
             )
+        )
+
+    def test_build_db_tm(self):
+        name = "test_build_db_name"
+        asset_type = "test_build_db_asset_type/test"
+        build_db_asset_yaml, tag_list = build_db_tm(name, asset_type)
+
+        expected_tag_list = [
+            "test_build_db_name",
+            "azure",
+            "azure-sql",
+            "sql",
+            "microsoft-sql",
+            "database",
+            "test_build_db_asset_type/test",
+        ]
+
+        self.assertTrue(lists_are_equal(expected_tag_list, tag_list))
+        self.assertTrue(
+            yaml_contains_correct_values(build_db_asset_yaml, name, asset_type)
+        )
+
+    def test_build_vm_tm(self):
+        name = "test_build_vm_name"
+        asset_type = "test_build_vm_asset_type/test"
+        build_vm_asset_yaml, tag_list = build_vm_tm(name, asset_type)
+
+        expected_tag_list = [
+            "test_build_vm_name",
+            "azure",
+            "azure-virtual-machine",
+            "virtual-machine",
+            "vm",
+            "test_build_vm_asset_type/test",
+        ]
+
+        self.assertTrue(lists_are_equal(expected_tag_list, tag_list))
+        self.assertTrue(
+            yaml_contains_correct_values(build_vm_asset_yaml, name, asset_type)
         )
 
 
