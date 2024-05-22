@@ -48,6 +48,62 @@ Basic usage:
 $ docker run --rm -it -v "$(pwd)":/app/work --entrypoint python dfe-digital/automated-threat-models dfe_threagile.py
 ```
 
+#### Run with continuous assurance file for data asset retrieval
+```shell
+$ docker run --rm -it -v  "$(pwd)":/app/work --entrypoint python dfe-digital/automated-threat-models dfe_threagile.py --ssphp-yaml "path-to-yaml"
+```
+
+#### Run threagile against output
+```shell
+$ docker run --rm -it -v "$(pwd)":/app/work dfe-digital/automated-threat-models -verbose -model "path to model" -output /app/work
+```
+
+#### GitHub Actions
+```
+on:
+  push:
+    paths:
+      - 'threagile.yaml' # useful to filter this job to execute only when the threat model changes
+
+jobs:
+
+  threagile_job:
+    runs-on: ubuntu-latest
+    name: Threat Model Analysis
+    steps:
+      
+      # Checkout the repo
+      - name: Checkout Workspace
+        uses: actions/checkout@v4
+     
+      # Run Threagile
+      - name: Run Threagile
+        id: threagile
+        uses: pritchyspritch/run-threagile-action@v2
+        with:
+          model-file: 'threagile.yaml' # for threagile only
+          output-dir: 'put/files/here' # default: threagile/output - for threagile only
+          optional-args: '-create-example-model' # optional args for whichever command you wish to run
+          dfe_threagile: true/false # set whether to run the dfe python code for automated tm or to run threagile
+     
+      # Archive resulting files as artifacts
+      - name: Archive Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: threagile-report
+          path: threagile/output
+     
+      # Optional step to link from repo's README.md if you want. This can also be committed to a separate branch if desired.
+      - name: Commit & Push Report and DFD Diagram
+        run: |
+          git config --local user.email "threagile@example.com" # customize as desired
+          git config --local user.name "Threagile" # customize as desired
+          git add threagile/output/report.pdf
+          git add threagile/output/data-flow-diagram.png
+          git commit -m "Update threat model report and data-flow diagram by Threagile" # customize as desired
+          git push
+```
+
 ### Create a stub model and example model (manual)
 
 It's advisable to create a stub and example model from threagile to give you a framework YAML file to work with and a thorough example with hints you can copy.
