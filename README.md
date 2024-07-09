@@ -1,5 +1,8 @@
 # Automated Threat Models
 
+> [!WARNING]
+> The main functionality relating to automated threat models in continuous assurance will be deprecated here in favour of the Rust implementation run as an Azure function in the CA project
+
 Threat modelling can become time consuming, and doing a thorough threat model for every single service is not scalable when taking into account security resources and the number of services in operation at DfE.
 
 This repo attempts to produce a working example of how one could partly automate the threat modelling process for some of our lower risk services.
